@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b1218">
+<meta name="theme-color" content="#d4efff">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.json">
+<script src="config.js"></script>
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>ক্লিপঘর</title>
@@ -35,6 +35,26 @@
   --display:"Baloo Da 2","Hind Siliguri",system-ui,sans-serif;
   --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
 }
+#app{color:var(--fg)}
+.acct{display:flex;align-items:center;gap:14px;width:100%;padding:12px;border:0;background:none;text-align:left;color:inherit}
+.avatar{width:64px;height:64px;border-radius:50%;background:var(--raise);display:grid;place-items:center;overflow:hidden;flex:none}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.avatar svg{width:34px;height:34px;fill:none;stroke:var(--mute);stroke-width:1.6;stroke-linecap:round}
+.acct .ai{display:flex;flex-direction:column;gap:3px;min-width:0}
+.acct b{font:700 20px/1.25 var(--display);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.acct small{color:var(--mute);font-size:13px}
+#app.home{--bg:#f2f8fd;--panel:#ffffff;--raise:#e6f0f8;--line:#d3e1ec;--fg:#0e1a25;--mute:#566878;color-scheme:light;background:linear-gradient(180deg,#d4efff 0,#f2f8fd 260px)}
+#app.home .brand svg{color:#0a9a90}
+#app.home .brand small{color:var(--mute)}
+#app.home .cards.big .card{box-shadow:0 10px 22px rgba(35,100,150,.18),inset 0 -4px 0 rgba(0,0,0,.08);color:#0b2233;background:linear-gradient(135deg,#9bdcff,#62bff7)}
+#app.home .cards.big .card.main{background:linear-gradient(135deg,#7ff3e1,#3fd0e6);color:#05221f}
+#app.home .qa i{background:#fff;box-shadow:0 6px 14px rgba(35,100,150,.12),inset 0 -3px 0 rgba(35,100,150,.08);border-color:#e1ecf5}
+#app.home .hnav{background:#fff;box-shadow:0 -4px 16px rgba(35,100,150,.08)}
+#app.home .hnav button[aria-current="true"]{color:#08857c}
+#app.home .box,#app.home .tile{box-shadow:0 6px 16px rgba(35,100,150,.1)}
+#app.home .chip{background:var(--raise);color:var(--fg)}
+#app.home .chip[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+#app.home .gfrow input,#app.home #pName{background:#fff;color:var(--fg)}
 *,*::before,*::after{box-sizing:border-box}
 html,body{height:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.45 var(--ui);overflow:hidden;-webkit-tap-highlight-color:transparent}
@@ -62,6 +82,38 @@ canvas{display:block;width:100%;height:100%;touch-action:none}
 .hero h1{margin:8px 0 0;font:700 26px/1.25 var(--display);text-wrap:balance}
 .hero p{margin:0;color:var(--mute);max-width:42ch}
 .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.gfrow{display:flex;gap:8px}
+.gfrow input{flex:1;min-width:0;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:inherit}
+.fnt{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 0}
+.pane{display:flex}
+.cards.big .card{min-height:120px;align-items:center;justify-content:center;text-align:center;border:0;background:linear-gradient(135deg,#1c5d63,#173a4d)}
+.cards.big .card.main{background:linear-gradient(135deg,#6cf0dc,#3fb9d9);color:#05221f}
+.cards.big .card svg.i{width:34px;height:34px}
+.cards.big .card span{display:none}
+.quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.qa{display:flex;flex-direction:column;align-items:center;gap:6px;padding:0;border:0;background:none;color:var(--fg);font-size:12px;font-weight:600;text-align:center}
+.qa i{font-style:normal;font-size:24px;display:grid;place-items:center;width:100%;aspect-ratio:1.35;border-radius:16px;background:var(--panel);border:1px solid var(--line)}
+.projhead{display:flex;align-items:center;justify-content:space-between;margin-top:4px}
+.projhead h2{margin:0;font:700 22px/1.2 var(--display)}
+.prow{display:flex;gap:14px;align-items:center;padding:8px 0;background:none;border:0;color:inherit;text-align:left;width:100%}
+.prow img,.prow .ph{width:84px;height:84px;object-fit:cover;border-radius:10px;background:var(--raise);flex:none}
+.prow .pi{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.prow b{font:700 17px/1.3 var(--display);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.prow small{color:var(--mute);font-size:13px}
+.pmore{border:0;background:none;color:var(--mute);font-size:22px;padding:8px 6px;letter-spacing:2px}
+.pempty{color:var(--mute);padding:12px 0}
+
+.pane h1{margin:8px 0 0;font:700 26px/1.25 var(--display)}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.tile{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 6px;border:1px solid var(--line);border-radius:14px;background:var(--panel);font-size:13px;font-weight:600;min-height:84px;justify-content:center;text-align:center}
+.tile em{font-style:normal;font-size:22px;line-height:1}
+.box{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:16px;display:flex;flex-direction:column;gap:12px}
+.box h2{margin:0;font:700 17px/1.3 var(--display)}
+.box ol{margin:0;padding-left:20px;color:var(--mute);display:flex;flex-direction:column;gap:6px}
+.hnav{flex:none;display:flex;border-top:1px solid var(--line);background:var(--bg)}
+.hnav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 4px 10px;border:0;background:none;color:var(--mute);font-size:12px;font-weight:600}
+.hnav button[aria-current="true"]{color:var(--accent)}
+.hnav svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .card{display:flex;flex-direction:column;align-items:flex-start;gap:14px;padding:18px 16px;border:1px solid var(--line);border-radius:16px;background:var(--panel);text-align:left;min-height:132px}
 .card.main{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
 .card svg.i{width:30px;height:30px}
@@ -79,11 +131,11 @@ canvas{display:block;width:100%;height:100%;touch-action:none}
 .icbtn svg.i{width:21px;height:21px}
 .icbtn[disabled]{opacity:.3;cursor:default}
 
-.timeline{flex:none;position:relative;height:190px;border-top:1px solid var(--line);background:var(--panel)}
-.tl{height:100%;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.timeline{flex:none;position:relative;overflow:hidden;height:190px;border-top:1px solid var(--line);background:var(--panel)}
+.tl{height:100%;overflow-x:auto;overflow-y:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .tl::-webkit-scrollbar{display:none}
-.tl-in{position:relative;height:100%}
-.ruler{position:absolute;left:0;right:0;top:0;height:24px;border-bottom:1px solid var(--line)}
+.tl-in{position:relative;min-height:100%}
+.ruler{position:sticky;left:0;top:0;width:100%;height:24px;border-bottom:1px solid var(--line);background:var(--panel);z-index:4}
 .tick{position:absolute;top:0;height:100%;padding-left:4px;border-left:1px solid var(--line);font:11px/24px var(--mono);color:var(--mute);white-space:nowrap}
 .row{position:absolute;left:0;right:0;border-bottom:1px dashed var(--line)}
 .addrow{position:absolute;display:flex;align-items:center;gap:6px;height:28px;padding:0 12px;border:0;border-radius:8px;background:var(--raise);color:var(--mute);font-size:12.5px;white-space:nowrap}
@@ -93,17 +145,18 @@ canvas{display:block;width:100%;height:100%;touch-action:none}
 .blk.clip{background-color:var(--clip);background-size:auto 100%;background-repeat:repeat-x;align-items:flex-end;padding:4px 6px}
 .blk.clip::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 35%,rgba(0,0,0,.65));pointer-events:none}
 .blk.clip span{position:relative;z-index:1;font:500 11px var(--mono)}
-.blk.text{background:var(--text)}
+.blk.text{background:#8b7cf6}
 .blk.ov{background:var(--ovl)}
+.blk.fl{background:#c2467a}
 .blk.audio{background:var(--music);color:#1d1300;font-weight:600}
 .blk[aria-selected=true]{border-color:#fff}
-.lcol{position:absolute;left:0;top:0;bottom:0;width:86px;pointer-events:none;background:linear-gradient(90deg,var(--panel) 82%,transparent);z-index:2}
+.lcol{position:absolute;left:0;top:0;width:86px;pointer-events:none;background:linear-gradient(90deg,var(--panel) 82%,transparent);z-index:2}
 .lb{position:absolute;pointer-events:auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;border:0;border-radius:8px;background:var(--raise);color:var(--fg);font-size:11px}
 .lb svg.i{width:18px;height:18px}
 .lb.big{width:36px;height:56px}
 .lb.sq{width:36px;height:28px}
 .lb[aria-pressed=true]{color:var(--accent)}
-.playhead{position:absolute;top:0;bottom:0;left:50%;width:2px;margin-left:-1px;background:#fff;pointer-events:none;z-index:3}
+.playhead{position:absolute;top:0;bottom:0;left:50%;width:2px;margin-left:-1px;background:#fff;pointer-events:none;z-index:5}
 .playhead::before{content:"";position:absolute;top:0;left:-4px;width:10px;height:10px;border-radius:50%;background:#fff}
 
 .panel{flex:none;max-height:44%;overflow-y:auto;background:var(--panel);border-top:1px solid var(--line);padding:10px 16px 12px;display:flex;flex-direction:column;gap:12px}
@@ -126,7 +179,7 @@ textarea{width:100%;resize:none;background:var(--raise);color:var(--fg);border:1
 .timing{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
 .timing div{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--raise);border-radius:10px;padding:6px 6px 6px 12px;min-width:0}
 .timing b{font:400 13px var(--mono)}
-.stk{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:4px}
+.stk{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:4px;max-height:34vh;overflow:auto;margin-top:8px}
 .stk button{border:0;background:none;font-size:26px;line-height:1.2;padding:4px 0;border-radius:8px;font-family:"Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",sans-serif}
 .hint{color:var(--mute);font-size:12.5px;margin:0}
 
@@ -154,7 +207,7 @@ textarea{width:100%;resize:none;background:var(--raise);color:var(--fg);border:1
 .btn[disabled]{opacity:.5;cursor:default}
 @media (prefers-reduced-motion:no-preference){.bar i{transition:width .2s linear}}
 </style>
-<style>html,body{margin:0;background:#0b1218;color-scheme:dark}body{padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}</style>
+<style>html,body{margin:0;background:#0d131a;color-scheme:dark}body{padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}</style>
 </head>
 <body>
 
@@ -164,7 +217,7 @@ textarea{width:100%;resize:none;background:var(--raise);color:var(--fg);border:1
     <button class="hbtn ed-only" id="btnClose" type="button" aria-label="প্রজেক্ট বন্ধ করুন"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     <div class="brand home-only">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M8 5v14M16 5v14M3 10h5M3 14h5M16 10h5M16 14h5"/></svg>
-      <span>ক্লিপঘর</span>
+      <span>ক্লিপঘর<small style="display:block;font:600 11px/1 var(--ui);letter-spacing:.6px;margin-top:3px">by FTTHBD</small></span>
     </div>
     <span class="sp"></span>
     <button class="chip-res ed-only" id="btnRes" type="button">720p ▾</button>
@@ -174,17 +227,70 @@ textarea{width:100%;resize:none;background:var(--raise);color:var(--fg);border:1
   <section class="stage" id="stage" aria-label="প্রিভিউ">
     <div class="frame" id="frame" hidden><canvas id="cv" width="720" height="1280"></canvas></div>
     <div class="hero" id="hero">
-      <h1>কী বানাবেন আজ?</h1>
-      <p>ভিডিও বা ছবি বেছে নিন। কাটাকাটি, বাংলা লেখা, ফিল্টার আর গান যোগ করে ফোনেই এডিট শেষ করুন। ফাইল আপনার ফোনের বাইরে যায় না।</p>
-      <div class="cards">
-        <button class="card main" id="cardVideo" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><b>নতুন ভিডিও</b><span>ভিডিও ও ছবি বেছে শুরু করুন</span></button>
-        <button class="card" id="cardPhoto" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M5 17l5-4 3 2 3-3 3 3"/></svg><b>ছবি থেকে ভিডিও</b><span>ছবি সাজিয়ে স্লাইডশো</span></button>
+      <div class="cards big">
+        <button class="card main" id="cardVideo" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><b>নতুন ভিডিও</b><span></span></button>
+        <button class="card" id="cardPhoto" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M5 17l5-4 3 2 3-3 3 3"/></svg><b>ছবি থেকে ভিডিও</b><span></span></button>
       </div>
-      <div class="feat" aria-label="যা যা করা যায়">
-        <span>স্প্লিট ও ট্রিম</span><span>স্পিড</span><span>বাংলা টেক্সট</span><span>ক্যাপশন</span><span>ফিল্টার</span><span>অ্যাডজাস্ট</span><span>এফেক্ট</span><span>অ্যানিমেশন</span><span>স্টিকার</span><span>ওভারলে</span><span>ক্রপ</span><span>ফ্রিজ</span><span>অডিও</span><span>ব্যাকগ্রাউন্ড</span><span>আনডু ও রিডু</span>
+      <div class="quick" id="quick">
+        <button class="qa" data-tk="captions" type="button"><i>💬</i>ক্যাপশন</button>
+        <button class="qa" data-tk="filter" type="button"><i>🎨</i>ফিল্টার</button>
+        <button class="qa" data-tk="trans" type="button"><i>🎞️</i>ট্রানজিশন</button>
+        <button class="qa" data-tk="fx" type="button"><i>✨</i>এফেক্ট</button>
+        <button class="qa" data-tk="adjust" data-img="1" type="button"><i>🖼️</i>ফটো এডিটর</button>
+        <button class="qa" data-tk="text" data-img="1" type="button"><i>📝</i>কভার মেকার</button>
+        <button class="qa" data-tk="stickers" type="button"><i>😀</i>স্টিকার</button>
+        <button class="qa" data-go="tools" type="button"><i>▦</i>সব টুলস</button>
+      </div>
+      <div class="projhead"><h2>প্রজেক্ট</h2></div>
+      <div id="projList"></div>
+    </div>
+    <div class="hero pane" id="hTools" data-pane="tools" hidden>
+      <h1>টুলস</h1>
+      <p>একটা টুল বেছে নিন, তারপর ভিডিও বা ছবি দিন। সরাসরি ওই টুল খুলে যাবে।</p>
+      <div class="tiles">
+        <button class="tile" data-tk="trans" type="button"><em>🎞️</em>ট্রানজিশন</button>
+        <button class="tile" data-tk="filter" type="button"><em>🎨</em>ফিল্টার</button>
+        <button class="tile" data-tk="addfl" type="button"><em>◐</em>ফিল্টার লেয়ার</button>
+        <button class="tile" data-tk="fx" type="button"><em>✨</em>এফেক্ট</button>
+        <button class="tile" data-tk="anim" type="button"><em>🌀</em>অ্যানিমেশন</button>
+        <button class="tile" data-tk="text" type="button"><em>অ</em>বাংলা টেক্সট</button>
+        <button class="tile" data-tk="captions" type="button"><em>💬</em>ক্যাপশন</button>
+        <button class="tile" data-tk="stickers" type="button"><em>😀</em>স্টিকার</button>
+        <button class="tile" data-tk="audio" type="button"><em>🎵</em>অডিও</button>
+        <button class="tile" data-tk="speed" type="button"><em>⏩</em>স্পিড</button>
+        <button class="tile" data-tk="crop" type="button"><em>✂️</em>ক্রপ</button>
+        <button class="tile" data-tk="adjust" type="button"><em>🎚️</em>অ্যাডজাস্ট</button>
+        <button class="tile" data-tk="ratio" type="button"><em>📐</em>অ্যাসপেক্ট</button>
       </div>
     </div>
-  </section>
+    <div class="hero pane" id="hProj" data-pane="proj" hidden>
+      <h1>প্রজেক্ট</h1>
+      <div id="projList2"></div>
+    </div>
+    <div class="hero pane" id="hMe" data-pane="me" hidden>
+      <button class="acct" id="acct" type="button"><span class="avatar" id="avatar"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg></span><span class="ai"><b id="acName">সাইন ইন করুন</b><small id="acSub">Google দিয়ে সাইন ইন করুন</small></span></button>
+      <button class="btn" id="acOut" type="button" hidden>সাইন আউট</button>
+      <div class="box"><h2>সব কিছু ফ্রি</h2>
+        <p>সাইন ইন ঐচ্ছিক। পেমেন্ট বা সাবস্ক্রিপশন কিছুই লাগে না। সব ফিল্টার, এফেক্ট ও ট্রানজিশন সবসময় ফ্রি। আপনার ভিডিও ফোনেই থাকে, কোথাও আপলোড হয় না।</p></div>
+      <div class="box"><h2>এক্সপোর্টের ডিফল্ট</h2>
+        <p class="lbl" style="margin:0">রেজোলিউশন</p><div class="chips" id="meRes"></div>
+        <p class="lbl" style="margin:0">ফ্রেমরেট</p><div class="chips" id="meFps"></div></div>
+      <div class="box"><h2 data-notr>ভাষা / Language</h2>
+        <div class="chips"><button class="chip" type="button" data-lang="bn" data-notr aria-pressed="true">বাংলা</button><button class="chip" type="button" data-lang="en" data-notr aria-pressed="false">English</button></div></div>
+      <div class="box"><h2>আমার ফন্ট</h2>
+        <p>নিজের পছন্দের যেকোনো ফন্ট যোগ করুন। যোগ করলে টেক্সটের স্টাইলে ফন্ট তালিকায় চলে আসবে।</p>
+        <div id="meFonts"></div>
+        <div class="chips"><button class="chip" type="button" data-a="fontfile">＋ ফন্ট ফাইল</button><button class="chip" type="button" data-a="fontgoogle">＋ Google ফন্ট</button></div>
+        <div class="gfrow" id="meGf" hidden><input id="gfName2" type="text" placeholder="ফন্টের নাম, যেমন Anek Bangla" aria-label="Google ফন্টের নাম"><button class="chip" type="button" data-a="gfgo2">যোগ করুন</button></div></div>
+      <h2 style="margin:6px 0 0;font:700 22px/1.2 var(--display)">সাহায্য</h2>
+      <div class="box"><h2>প্রথম ভিডিও বানাতে</h2>
+        <ol><li>"এডিট" ট্যাবে "নতুন ভিডিও" চাপুন, ভিডিও বা ছবি বেছে নিন।</li><li>নিচের টুলবার থেকে কাটা, টেক্সট, ফিল্টার, গান যোগ করুন।</li><li>টাইমলাইনে ক্লিপ ট্যাপ করলে ওই ক্লিপের টুল আসে।</li><li>উপরের "এক্সপোর্ট" চেপে ভিডিও বানান ও সেভ করুন।</li></ol></div>
+      <div class="box"><h2>টিপস</h2>
+        <ol><li>এক্সপোর্ট চলার সময় স্ক্রিন খোলা রাখুন, অন্য অ্যাপে যাবেন না।</li><li>টাইমলাইন দুই আঙুলে নয়, + আর − বাটনে ছোট-বড় হয়।</li><li>ভুল হলে আনডু (↶) চাপুন।</li><li>প্রজেক্ট সেভ থাকে না। এক্সপোর্ট না করে বন্ধ করলে কাজ হারাবে।</li></ol></div>
+    
+      <div class="box"><h2>ক্লিপঘর · FTTHBD</h2><p>FTTHBD-এর ভিডিও এডিটর অ্যাপ। ভার্সন ৫ · ফোনের ব্রাউজারে চলে।</p></div>
+    </div>
+</section>
 
   <div class="transport ed-only">
     <div class="time" id="time"></div>
@@ -205,6 +311,12 @@ textarea{width:100%;resize:none;background:var(--raise);color:var(--fg);border:1
 
   <div class="panel ed-only" id="panel" hidden></div>
   <nav class="toolbar ed-only" id="toolbar" aria-label="এডিটিং টুল"></nav>
+  <nav class="hnav home-only" id="hnav" aria-label="মূল মেনু">
+    <button type="button" data-tab="edit" aria-current="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="17" r="3"/><circle cx="12" cy="17" r="0"/><path d="M8 15l11-11M8.5 8.5L19 19M6 14V5"/></svg>এডিট</button>
+    <button type="button" data-tab="tools"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>টুলস</button>
+    <button type="button" data-tab="proj"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>প্রজেক্ট</button>
+    <button type="button" data-tab="me"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>আমি</button>
+  </nav>
 </div>
 
 <div class="toast" id="toast" hidden role="status"></div>
@@ -237,6 +349,15 @@ textarea{width:100%;resize:none;background:var(--raise);color:var(--fg);border:1
       <p id="shErrMsg" style="margin-bottom:14px"></p>
       <button class="btn" id="shErrClose" type="button">ঠিক আছে</button>
     </div>
+    <div id="shProj" hidden>
+      <input id="pName" type="text" maxlength="40" aria-label="প্রজেক্টের নাম" style="width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:inherit;margin-bottom:14px">
+      <div class="btnrow" style="flex-wrap:wrap">
+        <button class="btn pri" id="pSave" type="button">নাম সেভ করুন</button>
+        <button class="btn" id="pDup" type="button">ডুপ্লিকেট</button>
+        <button class="btn warn" id="pDel" type="button">ডিলিট</button>
+        <button class="btn" id="pClose" type="button">বন্ধ করুন</button>
+      </div>
+    </div>
     <div id="shConf" hidden>
       <p style="margin-bottom:14px">প্রজেক্ট বন্ধ করলে এই এডিটের সব কাজ মুছে যাবে। বন্ধ করবেন?</p>
       <div class="btnrow">
@@ -249,6 +370,7 @@ textarea{width:100%;resize:none;background:var(--raise);color:var(--fg);border:1
 
 <input type="file" id="fileV" accept="video/*,image/*" multiple hidden>
 <input type="file" id="fileA" accept="audio/*" hidden>
+<input type="file" id="fileF" accept=".ttf,.otf,.woff,.woff2,font/*" hidden>
 <input type="file" id="fileO" accept="image/*,video/*" multiple hidden>
 <input type="file" id="fileR" accept="video/*,image/*" hidden>
 <div id="pool" aria-hidden="true" style="position:fixed;right:0;bottom:0;width:2px;height:2px;opacity:.01;pointer-events:none;overflow:hidden"></div>
@@ -256,6 +378,8 @@ textarea{width:100%;resize:none;background:var(--raise);color:var(--fg);border:1
 <script>
 (()=>{
 'use strict';
+const BLOBS=new Map(), _cou=URL.createObjectURL.bind(URL);
+URL.createObjectURL=b=>{ const u=_cou(b); if(b instanceof Blob) BLOBS.set(u,b); return u; };
 const $=s=>document.querySelector(s);
 const uid=()=>Math.random().toString(36).slice(2,9);
 const clamp=(v,a,b)=>Math.min(Math.max(v,a),b);
@@ -268,6 +392,9 @@ const IOS=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==='Mac
 
 const IC={
   plus:'<path d="M12 5v14M5 12h14"/>',
+  up:'<path d="M12 19V5M6 11l6-6 6 6"/>',
+  down:'<path d="M12 5v14M6 13l6 6 6-6"/>',
+  layers:'<path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/>',
   text:'<path d="M5 6V4h14v2M12 4v16M9 20h6"/>',
   music:'<path d="M9 18V5l11-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/>',
   ratio:'<rect x="4" y="6" width="16" height="12" rx="2"/><path d="M8 10h2M14 14h2"/>',
@@ -318,10 +445,27 @@ const FILTERS=[
   {n:'সাদা-কালো',css:'grayscale(1)'},
   {n:'পুরনো দিন',css:'sepia(0.6) contrast(0.95) brightness(1.05)'},
   {n:'নাটকীয়',css:'contrast(1.35) saturate(0.85) brightness(0.95)'},
-  {n:'নরম',css:'contrast(0.85) brightness(1.1) saturate(0.9)'}
+  {n:'নরম',css:'contrast(0.85) brightness(1.1) saturate(0.9)'},
+  {n:'ভিন্টেজ ফিল্ম',css:'sepia(0.45) contrast(1.1) saturate(0.8) brightness(0.95)'},
+  {n:'ভাইব্রেন্ট',css:'saturate(1.9) contrast(1.05)'},
+  {n:'মুডি',css:'contrast(1.2) saturate(0.7) brightness(0.85)'},
+  {n:'গোল্ডেন আওয়ার',css:'sepia(0.35) saturate(1.5) brightness(1.08) hue-rotate(-12deg)'},
+  {n:'বরফ',css:'hue-rotate(35deg) saturate(1.2) brightness(1.08)'},
+  {n:'ফেড',css:'contrast(0.8) brightness(1.15) saturate(0.7)'},
+  {n:'কড়া সাদা-কালো',css:'grayscale(1) contrast(1.5)'},
+  {n:'নরম সাদা-কালো',css:'grayscale(1) contrast(0.9) brightness(1.1)'},
+  {n:'নিয়ন',css:'saturate(2.4) contrast(1.25) hue-rotate(-20deg)'},
+  {n:'গোলাপি',css:'hue-rotate(-35deg) saturate(1.4) brightness(1.05)'},
+  {n:'সবুজাভ',css:'hue-rotate(60deg) saturate(1.2)'},
+  {n:'নেগেটিভ',css:'invert(1)'},
+  {n:'সেপিয়া',css:'sepia(1)'},
+  {n:'পপ',css:'contrast(1.3) saturate(1.7) brightness(1.05)'},
+  {n:'ফ্যাকাশে',css:'saturate(0.5) contrast(1.15)'},
+  {n:'রোদেলা',css:'brightness(1.15) saturate(1.3) sepia(0.2)'}
 ];
-const EFFECTS=['কোনোটি নয়','ঝাঁকুনি','জুম পালস','ফ্ল্যাশ','গ্রেইন','ভিগনেট','গ্লিচ'];
-const ANIMS=['কোনোটি নয়','ফেড','জুম','বাম থেকে','ডান থেকে','নিচ থেকে'];
+const EFFECTS=['কোনোটি নয়','ঝাঁকুনি','জুম পালস','ফ্ল্যাশ','গ্রেইন','ভিগনেট','গ্লিচ','আরজিবি স্প্লিট','ভিএইচএস','ব্লার পালস','মিরর','ফ্লিকার','ধীর জুম','দোলা','সিনেমা বার','লাল ফ্ল্যাশ','স্ট্রোব','হার্টবিট','স্বপ্নিল আভা'];
+const ANIMS=['কোনোটি নয়','ফেড','জুম','বাম থেকে','ডান থেকে','নিচ থেকে','ঘূর্ণি','বাউন্স','উপর থেকে','জুম আউট','ঝাপসা','সুইং','ফ্লিপ'];
+const TRANS=['কোনোটি নয়','কালো ফেড','সাদা ফ্ল্যাশ','বামে স্লাইড','ডানে স্লাইড','নিচ থেকে স্লাইড','জুম ইন','জুম আউট','ঘূর্ণি','ওয়াইপ →','ওয়াইপ ←','ঝাপসা','গ্লিচ','ভাঁজ'];
 const FONTS=[
   {n:'সাধারণ',css:'"Hind Siliguri"',w:700},
   {n:'গোলগাল',css:'"Baloo Da 2"',w:700},
@@ -333,13 +477,27 @@ const FONTS=[
 const TEXT_COLORS=['#ffffff','#ffe066','#ff6b6b','#5eead4','#a78bfa','#111111'];
 const TEXT_STYLES=[['plain','সাধারণ'],['outline','আউটলাইন'],['box','ব্যাকগ্রাউন্ড'],['shadow','ছায়া']];
 const BG_COLORS=['#000000','#ffffff','#1f2937','#0f766e','#7c3aed','#be123c'];
-const STICKERS=['😀','😂','😍','🥰','😎','🤩','😭','😡','👍','👏','🙏','🔥','❤️','💯','✨','🎉','🎵','⭐','🌹','🌙','☀️','🌈','🍕','⚽','🏏','🕌','🇧🇩','👑','💥','🎁','📌','⚡'];
+const STICKERS=['😀','😂','🤣','😊','😍','🥰','😘','😎','🤩','🥳','😭','😢','😡','🤯','😱','🤔','🙄','😴','🤗','😏','👍','👎','👏','🙌','🙏','💪','👌','✌️','🤝','👋','❤️','🧡','💛','💚','💙','💜','🖤','💔','💯','🔥','✨','⭐','🌟','💥','⚡','🎉','🎊','🎁','🎵','🎶','🎤','🎬','📸','📌','📍','✅','❌','⚠️','❓','❗','💰','💸','📶','📡','🌐','💻','📱','🔌','🛜','🚀','⏰','👑','🌹','🌸','🌙','☀️','🌈','☁️','🌧️','🍕','🍔','🍰','☕','⚽','🏏','🏆','🕌','🕋','🇧🇩','🐱','🐶','🦁','🐯'];
 const FILTER_OK='filter' in ctx;
-const ROW={ov:28,main:62,audio:124,text:158};
+const ROW={main:62};
+function layoutRows(){
+  const nF=lanes.fl, nO=Math.max(lanes.ov,1), nA=Math.max(lanes.audio,1), nT=Math.max(lanes.text,1);
+  ROW.fl=28; ROW.nF=nF; ROW.ovBase=28+nF*34; ROW.nO=nO;
+  ROW.main=ROW.ovBase+nO*34; ROW.audioBase=ROW.main+62; ROW.nA=nA;
+  ROW.textBase=ROW.audioBase+nA*34; ROW.nT=nT; ROW.bottom=ROW.textBase+nT*34+10;
+}
+function rowTop(k,L){
+  L=Math.min(L||0,Math.max(lanes[k]-1,0));
+  if(k==='fl') return ROW.fl+(ROW.nF-1-L)*34;
+  if(k==='ov') return ROW.ovBase+(ROW.nO-1-L)*34;
+  if(k==='audio') return ROW.audioBase+L*34;
+  return ROW.textBase+L*34;
+}
 
 /* ---------- state ---------- */
 let ratio='9:16', bg={mode:'color',color:'#000000'}, muteMain=false;
-let clips=[], texts=[], overlays=[], audios=[];
+let clips=[], texts=[], overlays=[], audios=[], fls=[];
+let lanes={ov:1,audio:1,text:1,fl:0};
 let total=0, t=0, pps=60, sel=null, tool=null;
 let playing=false, raf=0, lastNow=0, activeId=null;
 let exporting=false, cancelled=false, rec=null, chunks=[], exportBlob=null, exportExt='webm', exportUrl='', wl=null;
@@ -356,7 +514,17 @@ const u=URL.createObjectURL(data),a=document.createElement('a');a.href=u;a.downl
 dl=plainDl;
 const exp={res:720,fps:30,q:1};
 const RT=new Map();
-const reg=i=>{ RT.set(i.id,{el:i.el,gain:i.gain,thumb:i.thumb}); };
+const LISTOF=k=>k==='ov'?overlays:k==='audio'?audios:k==='fl'?fls:texts;
+const itemEnd=(k,o)=>k==='audio'?o.start+Math.max(Math.min(o.dur,Math.max(total-o.start,0.2)),0.2):o.end;
+function pickLane(k,a,b,skip){
+  for(let L=0;L<lanes[k];L++){
+    if(!LISTOF(k).some(o=>o.id!==skip&&(o.lane||0)===L&&o.start<b&&itemEnd(k,o)>a)) return L;
+  }
+  lanes[k]=Math.min(lanes[k]+1,8); return lanes[k]-1;
+}
+const byLane=a=>a.length>1?[...a].sort((x,y)=>(x.lane||0)-(y.lane||0)):a;
+const POSTFX=new Set([3,4,5,6,7,8,10,11,14,15,16,18]);
+const reg=i=>{ RT.set(i.id,{el:i.el,gain:i.gain,thumb:i.thumb,gif:i.gif}); };
 const attach=i=>{ const r=RT.get(i.id); if(r) Object.assign(i,r); return i; };
 
 /* ---------- audio graph ---------- */
@@ -383,21 +551,224 @@ function applyVolumes(){
   for(const a of audios) setVol(a,a.vol);
 }
 
+
+
+/* ---------- custom fonts ---------- */
+let fontN=0;
+function addFontEntry(rec){
+  const fam=rec.kind==='file'?'cgf-'+rec.id:rec.name;
+  FONTS.push({n:rec.name,css:'"'+fam+'"',w:400,custom:true,id:rec.id});
+  return FONTS.length-1;
+}
+async function registerFont(rec){
+  try{
+    if(rec.kind==='file'){
+      const ff=new FontFace('cgf-'+rec.id,await rec.data.arrayBuffer());
+      await ff.load(); document.fonts.add(ff);
+    }else{
+      await new Promise((ok,no)=>{
+        const l=document.createElement('link'); l.rel='stylesheet';
+        l.href='https://fonts.googleapis.com/css2?family='+encodeURIComponent(rec.name).replace(/%20/g,'+')+'&display=swap';
+        l.onload=ok; l.onerror=()=>no(new Error('nf')); document.head.appendChild(l);
+      });
+      await document.fonts.load('400 24px "'+rec.name+'"','অআabc');
+    }
+    return addFontEntry(rec);
+  }catch(e){ return -1; }
+}
+async function loadSavedFonts(){
+  try{
+    const all=(await dbAll('fonts')).sort((a,b)=>a.ts-b.ts);
+    for(const r of all) await registerFont(r);
+    renderFontList(); render(true);
+  }catch(e){}
+}
+async function addFontFromFile(file){
+  const name=(file.name||'font').replace(/\.[^.]+$/,'').slice(0,30);
+  const rec={id:'f'+Date.now().toString(36),ts:Date.now(),kind:'file',name,data:file};
+  const idx=await registerFont(rec);
+  if(idx<0){ toast('ফন্টটি খোলা যায়নি। TTF, OTF বা WOFF ফাইল দিন।'); return; }
+  try{ const d=await idb(), t=d.transaction('fonts','readwrite'); t.objectStore('fonts').put(rec); await dbDone(t); }catch(e){}
+  useNewFont(idx); toast('ফন্ট যোগ হয়েছে: '+name);
+}
+async function addGoogleFont(name){
+  name=(name||'').trim().replace(/\s+/g,' ');
+  if(!name){ toast('ফন্টের নাম লিখুন'); return; }
+  if(FONTS.some(f=>f.n.toLowerCase()===name.toLowerCase())){ toast('এই ফন্ট আগেই আছে'); return; }
+  toast('ফন্ট আনছে…');
+  const rec={id:'f'+Date.now().toString(36),ts:Date.now(),kind:'google',name};
+  const idx=await registerFont(rec);
+  if(idx<0){ toast('"'+name+'" নামে Google ফন্ট পাওয়া যায়নি, বা ইন্টারনেট নেই'); return; }
+  try{ const d=await idb(), t=d.transaction('fonts','readwrite'); t.objectStore('fonts').put(rec); await dbDone(t); }catch(e){}
+  gfOpen=false; useNewFont(idx); toast('ফন্ট যোগ হয়েছে: '+name);
+}
+function useNewFont(idx){
+  const it=selItem();
+  if(it&&sel&&sel.type==='text'){ it.font=idx; commit(); renderChrome(); ensureFonts(); }
+  renderFontList(); render(true);
+}
+function renderFontList(){
+  const box=$('#meFonts'); if(!box) return;
+  const cf=FONTS.filter(f=>f.custom);
+  box.innerHTML=cf.length?cf.map(f=>'<div class="fnt"><span style="font-family:'+f.css+',var(--ui);font-size:18px">'+esc(f.n)+' · অআকখ Abc</span></div>').join(''):'<p class="hint">এখনও কোনো ফন্ট যোগ করা হয়নি।</p>';
+}
+
+/* ---------- projects (saved in the browser) ---------- */
+let DB=null, dbOK=true, curPid=null, curName='', loadingProj=false, saveTimer=0, bidN=0, saveWarned=false;
+const urlBid=new Map(), bidUrl=new Map(), savedBids=new Set();
+function idb(){
+  return new Promise((ok,no)=>{
+    if(DB) return ok(DB);
+    try{
+      const r=indexedDB.open('clipghor',1);
+      r.onupgradeneeded=()=>{ const d=r.result; d.createObjectStore('projects',{keyPath:'id'}); d.createObjectStore('blobs'); d.createObjectStore('fonts',{keyPath:'id'}); };
+      r.onsuccess=()=>{ DB=r.result; ok(DB); };
+      r.onerror=()=>no(r.error);
+    }catch(e){ no(e); }
+  });
+}
+const rq=r=>new Promise((ok,no)=>{ r.onsuccess=()=>ok(r.result); r.onerror=()=>no(r.error); });
+const dbDone=t=>new Promise((ok,no)=>{ t.oncomplete=()=>ok(); t.onerror=()=>no(t.error); t.onabort=()=>no(t.error); });
+async function dbGet(st,k){ const d=await idb(); return rq(d.transaction(st).objectStore(st).get(k)); }
+async function dbAll(st){ const d=await idb(); return rq(d.transaction(st).objectStore(st).getAll()); }
+async function dbKeys(st,range){ const d=await idb(); return rq(d.transaction(st).objectStore(st).getAllKeys(range)); }
+async function dbDel(st,k){ const d=await idb(); const t=d.transaction(st,'readwrite'); t.objectStore(st).delete(k); return dbDone(t); }
+const pad2=n=>String(n).padStart(2,'0');
+async function nextName(){
+  const d=new Date(), base=pad2(d.getMonth()+1)+pad2(d.getDate());
+  let n=1; try{ const all=await dbAll('projects'); n=all.filter(p=>p.name.startsWith(base+'-')).length+1; }catch(e){}
+  return base+'-'+pad2(n);
+}
+function coverThumb(){
+  const v=clips.find(c=>c.thumb&&c.thumb.startsWith('data:'));
+  if(v) return v.thumb;
+  try{
+    const w=160,h=Math.round(w*canvas.height/canvas.width), cv=document.createElement('canvas'); cv.width=w; cv.height=h;
+    cv.getContext('2d').drawImage(canvas,0,0,w,h); return cv.toDataURL('image/jpeg',0.6);
+  }catch(e){ return ''; }
+}
+function saveSoon(){ if(loadingProj||!clips.length) return; clearTimeout(saveTimer); saveTimer=setTimeout(saveProject,1200); }
+async function saveProject(){
+  clearTimeout(saveTimer);
+  if(!clips.length||loadingProj||!dbOK) return;
+  try{
+    if(!curPid){ curPid='p'+Date.now().toString(36); curName=await nextName(); }
+    const st=JSON.parse(snapshot()), thumbs={};
+    for(const i of [...clips,...overlays]) if(i.thumb&&i.thumb.startsWith('data:')) thumbs[i.id]=i.thumb;
+    const used=new Set(), add=[]; let size=0;
+    for(const it of [...st.clips,...st.overlays,...st.audios]){
+      if(!it.url) continue;
+      let b=urlBid.get(it.url);
+      if(!b){ b='b'+(++bidN)+Date.now().toString(36); urlBid.set(it.url,b); bidUrl.set(b,it.url); }
+      const blob=BLOBS.get(it.url);
+      if(blob&&!used.has(b)) size+=blob.size;
+      if(!savedBids.has(b)&&blob) add.push([b,blob]);
+      used.add(b); it.url=b;
+    }
+    const d=await idb();
+    const t=d.transaction(['projects','blobs'],'readwrite');
+    for(const [b,blob] of add) t.objectStore('blobs').put(blob,curPid+'|'+b);
+    t.objectStore('projects').put({id:curPid,name:curName,updated:Date.now(),dur:total,size,thumb:coverThumb(),thumbs,state:JSON.stringify(st)});
+    await dbDone(t);
+    for(const [b] of add) savedBids.add(b);
+    const keys=await dbKeys('blobs',IDBKeyRange.bound(curPid+'|',curPid+'|￿'));
+    const t2=d.transaction('blobs','readwrite');
+    for(const k of keys){ const b=String(k).slice(curPid.length+1); if(!used.has(b)){ t2.objectStore('blobs').delete(k); savedBids.delete(b); } }
+    await dbDone(t2);
+  }catch(e){
+    if(!saveWarned){ saveWarned=true; toast('প্রজেক্ট সেভ করা যাচ্ছে না (জায়গা কম বা ব্রাউজার অনুমতি দিচ্ছে না)'); }
+  }
+}
+async function refreshProjects(){
+  const box=$('#projList'); if(!box) return;
+  let list=[];
+  try{ list=(await dbAll('projects')).sort((a,b)=>b.updated-a.updated); }catch(e){ dbOK=false; box.innerHTML='<p class="pempty">এই ব্রাউজারে প্রজেক্ট সেভ করা যাচ্ছে না।</p>'; return; }
+  const box2=$('#projList2');
+  const empty='<p class="pempty">এখনও কোনো প্রজেক্ট নেই। "নতুন ভিডিও" চেপে শুরু করুন। কাজ নিজে নিজে সেভ হবে।</p>';
+  if(!list.length){ box.innerHTML=empty; if(box2) box2.innerHTML=empty; return; }
+  const row=p=>{
+    const d=new Date(p.updated);
+    const when=pad2(d.getDate())+'/'+pad2(d.getMonth()+1)+'/'+d.getFullYear()+' '+pad2(d.getHours())+':'+pad2(d.getMinutes());
+    const dur=pad2(Math.floor(p.dur/60))+':'+pad2(Math.floor(p.dur%60));
+    return '<div class="prow" data-open="'+esc(p.id)+'" role="button" tabindex="0">'+(p.thumb?'<img alt="" src="'+esc(p.thumb)+'">':'<span class="ph"></span>')+
+      '<span class="pi"><b>'+esc(p.name)+'</b><small>'+when+'</small><small>'+(p.size/1048576).toFixed(p.size<1e7?1:0)+'MB · '+dur+'</small></span>'+
+      '<button class="pmore" type="button" data-more="'+esc(p.id)+'" aria-label="আরও">•••</button></div>';
+  };
+  box.innerHTML=list.slice(0,3).map(row).join('')+(list.length>3?'<button class="chip" type="button" data-tab-go="proj">সব দেখুন ('+list.length+')</button>':'');
+  if(box2) box2.innerHTML=list.map(row).join('');
+}
+async function openProject(pid){
+  let rec; try{ rec=await dbGet('projects',pid); }catch(e){}
+  if(!rec){ toast('প্রজেক্টটি পাওয়া যায়নি'); return; }
+  loadingProj=true; toast('প্রজেক্ট খুলছে…');
+  try{
+    resetProject(true);
+    const st=JSON.parse(rec.state), th=rec.thumbs||{};
+    const need=new Set(); for(const it of [...st.clips,...st.overlays,...st.audios]) if(it.url) need.add(it.url);
+    for(const b of need){
+      const blob=await dbGet('blobs',pid+'|'+b);
+      if(blob){ const u=URL.createObjectURL(blob); urlBid.set(u,b); bidUrl.set(b,u); savedBids.add(b); }
+    }
+    const fix=it=>{ it.url=bidUrl.get(it.url)||''; return it; };
+    clips=st.clips.map(fix).filter(c=>c.url).map(c=>{
+      c.thumb=th[c.id]||''; c.el=c.kind==='image'?makeImage(c.url):makeVideo(c.url);
+      if(c.kind==='image') c.thumb=c.url; else if(!c.freeze){ c.gain=wire(c.el); }
+      reg(c); return c;
+    });
+    overlays=st.overlays.map(o=>{ if(o.kind==='emoji') return o; fix(o); if(!o.url) return null;
+      o.thumb=th[o.id]||''; o.el=(o.kind==='img'||o.kind==='gif')?makeImage(o.url):makeVideo(o.url); if(o.kind==='gif') o.gif=newGif(o.url); if(o.kind==='vid') o.gain=wire(o.el); reg(o); return o; }).filter(Boolean);
+    audios=st.audios.map(fix).filter(a=>a.url).map(a=>{ const el=new Audio(); el.preload='auto'; el.src=a.url; a.el=el; a.gain=wire(el); reg(a); return a; });
+    texts=st.texts; bg=st.bg; muteMain=st.muteMain; fls=st.fls||[]; lanes=st.lanes||{ov:1,audio:1,text:1,fl:0};
+    ratio=st.ratio; applyRatio();
+    curPid=pid; curName=rec.name;
+    applyVolumes(); t=0; hist=[]; hi=-1;
+    commit();
+    refreshAll(); setT(0); ensureFonts();
+  }catch(e){ toast('প্রজেক্ট খুলতে সমস্যা হয়েছে'); resetProject(true); }
+  loadingProj=false;
+}
+async function closeToHome(){
+  stopPlay(); await saveProject(); resetProject(); applyTab(); await refreshProjects();
+}
+let menuPid=null, delArmed=false;
+async function openMenu(pid){
+  const rec=await dbGet('projects',pid); if(!rec) return;
+  menuPid=pid; delArmed=false; $('#pName').value=rec.name; $('#pDel').textContent='ডিলিট'; showSheet('Proj');
+}
+async function dupProject(pid){
+  const rec=await dbGet('projects',pid); if(!rec) return;
+  const nid='p'+Date.now().toString(36);
+  const keys=await dbKeys('blobs',IDBKeyRange.bound(pid+'|',pid+'|￿'));
+  const d=await idb(), r=d.transaction('blobs');
+  const blobs=await Promise.all(keys.map(k=>rq(r.objectStore('blobs').get(k))));
+  const t=d.transaction(['projects','blobs'],'readwrite');
+  keys.forEach((k,i)=>t.objectStore('blobs').put(blobs[i],nid+'|'+String(k).slice(pid.length+1)));
+  t.objectStore('projects').put(Object.assign({},rec,{id:nid,name:rec.name+' কপি',updated:Date.now()}));
+  await dbDone(t);
+}
+async function delProject(pid){
+  const keys=await dbKeys('blobs',IDBKeyRange.bound(pid+'|',pid+'|￿'));
+  const d=await idb(), t=d.transaction(['projects','blobs'],'readwrite');
+  keys.forEach(k=>t.objectStore('blobs').delete(k)); t.objectStore('projects').delete(pid);
+  await dbDone(t);
+}
+
 /* ---------- history ---------- */
-const SKIP=new Set(['el','gain','thumb','_box','_prep','_unl']);
+const SKIP=new Set(['gif','el','gain','thumb','_box','_prep','_unl']);
 let hist=[], hi=-1;
-function snapshot(){ return JSON.stringify({ratio,bg,muteMain,clips,texts,overlays,audios},(k,v)=>SKIP.has(k)?undefined:v); }
+function snapshot(){ return JSON.stringify({ratio,bg,muteMain,clips,texts,overlays,audios,fls,lanes},(k,v)=>SKIP.has(k)?undefined:v); }
 function commit(){
   const s=snapshot();
   if(hist[hi]===s) return;
   hist=hist.slice(0,hi+1); hist.push(s);
   if(hist.length>60) hist.shift();
-  hi=hist.length-1; updateUR();
+  hi=hist.length-1; updateUR(); saveSoon();
 }
 function restore(s){
   stopPlay();
   const o=JSON.parse(s);
   clips=o.clips.map(attach); texts=o.texts; overlays=o.overlays.map(attach); audios=o.audios.map(attach);
+  fls=o.fls||[]; lanes=o.lanes||{ov:1,audio:1,text:1,fl:0};
   bg=o.bg; muteMain=o.muteMain;
   if(o.ratio!==ratio){ ratio=o.ratio; applyRatio(); }
   applyVolumes(); refreshAll(); setT(t);
@@ -411,7 +782,7 @@ function updateUR(){
 }
 
 /* ---------- helpers ---------- */
-const newClip=o=>Object.assign({id:uid(),kind:'video',name:'',url:'',dur:0,in:0,out:0,speed:1,volume:1,opacity:1,filter:0,adj:{b:0,c:0,s:0,t:0,v:0,bl:0},effect:0,animIn:0,animOut:0,animDur:0.5,scale:1,rot:0,flip:false,px:0,py:0,fill:false,fixed:false,hold:3,freeze:false,start:0,len:0,el:null,gain:null,thumb:''},o);
+const newClip=o=>Object.assign({id:uid(),kind:'video',name:'',url:'',dur:0,in:0,out:0,speed:1,volume:1,opacity:1,filter:0,adj:{b:0,c:0,s:0,t:0,v:0,bl:0},effect:0,trans:0,transDur:0.5,animIn:0,animOut:0,animDur:0.5,scale:1,rot:0,flip:false,px:0,py:0,fill:false,fixed:false,hold:3,freeze:false,start:0,len:0,el:null,gain:null,thumb:''},o);
 function layout(){
   let a=0;
   for(const c of clips){ c.start=a; c.len=c.fixed?Math.max(c.hold,0.2):Math.max((c.out-c.in)/c.speed,0.05); a+=c.len; }
@@ -433,7 +804,7 @@ function locate(tt){
 const getClip=id=>clips.find(c=>c.id===id);
 function selItem(){
   if(!sel) return null;
-  const L=sel.type==='clip'?clips:sel.type==='text'?texts:sel.type==='ov'?overlays:audios;
+  const L=sel.type==='clip'?clips:sel.type==='text'?texts:sel.type==='ov'?overlays:sel.type==='fl'?fls:audios;
   return L.find(x=>x.id===sel.id)||null;
 }
 function toast(msg,action){
@@ -479,6 +850,24 @@ function makeVideo(url){
   v.src=url; pool.appendChild(v);
   return v;
 }
+async function decodeGif(g,url){
+  try{
+    if(typeof ImageDecoder==='undefined') return;
+    const buf=await (await fetch(url)).arrayBuffer();
+    const dec=new ImageDecoder({data:buf,type:'image/gif'});
+    await dec.tracks.ready;
+    const n=dec.tracks.selectedTrack.frameCount;
+    let tot=0;
+    for(let i=0;i<n&&i<400;i++){
+      const r=await dec.decode({frameIndex:i});
+      const bmp=await createImageBitmap(r.image);
+      const d=Math.max((r.image.duration||100000)/1e6,0.02);
+      r.image.close(); g.fr.push({bmp,at:tot}); tot+=d; g.total=tot;
+    }
+    render(true);
+  }catch(e){ g.fr=[]; g.total=0; }
+}
+const newGif=url=>{ const g={fr:[],total:0}; decodeGif(g,url); return g; };
 function makeImage(url){
   const im=new Image(); im.decoding='async'; im.src=url; return im;
 }
@@ -535,12 +924,12 @@ async function addFiles(files){
   if(!added) return;
   if(clips.length===added) t=0;
   commit(); refreshAll(); setT(t);
-  toast(added+'টি ক্লিপ যোগ হয়েছে');
+  toast(added+'টি ক্লিপ যোগ হয়েছে'); runPending();
 }
 
 /* ---------- animation and effect math ---------- */
 function animCalc(it,local,len){
-  let alpha=1,scale=1,dx=0,dy=0;
+  let alpha=1,scale=1,dx=0,dy=0,rot=0,blur=0,sx=1;
   const D=Math.max(it.animDur||0.5,0.1), W=canvas.width, H=canvas.height;
   const apply=(type,p)=>{
     if(!type) return;
@@ -550,15 +939,49 @@ function animCalc(it,local,len){
     else if(type===3){ dx-=(1-e)*W*0.4; alpha*=Math.min(1,p*2); }
     else if(type===4){ dx+=(1-e)*W*0.4; alpha*=Math.min(1,p*2); }
     else if(type===5){ dy+=(1-e)*H*0.3; alpha*=Math.min(1,p*2); }
+    else if(type===6){ rot-=(1-e)*180; scale*=0.4+0.6*e; alpha*=Math.min(1,p*2); }
+    else if(type===7){ scale*=0.3+0.7*(1+0.3*Math.sin(p*PI*3)*(1-p)); alpha*=Math.min(1,p*3); }
+    else if(type===8){ dy-=(1-e)*H*0.3; alpha*=Math.min(1,p*2); }
+    else if(type===9){ scale*=1.6-0.6*e; alpha*=Math.min(1,p*2); }
+    else if(type===10){ blur+=(1-p)*0.04*Math.min(W,H); alpha*=Math.min(1,p*2); }
+    else if(type===11){ rot+=(1-p)*20*Math.sin(p*PI*3); alpha*=Math.min(1,p*2); }
+    else if(type===12){ sx*=Math.max(e,0.02); }
   };
   if(it.animIn&&local<D) apply(it.animIn,clamp(local/D,0,1));
   if(it.animOut&&len-local<D) apply(it.animOut,clamp((len-local)/D,0,1));
-  return {alpha,scale,dx,dy};
+  return {alpha,scale,dx,dy,rot,blur,sx};
+}
+function trCalc(c,local){
+  const r={alpha:1,scale:1,dx:0,dy:0,rot:0,blur:0,sx:1,over:null,clip:null,glitch:0};
+  const td=Math.max(c.transDur||0.5,0.1);
+  if(!c.trans||local>=td) return r;
+  const p=clamp(local/td,0,1), e=1-Math.pow(1-p,3), W=canvas.width, H=canvas.height;
+  switch(c.trans){
+    case 1: r.over=['#000',1-p]; break;
+    case 2: r.over=['#fff',1-p]; break;
+    case 3: r.dx=-(1-e)*W; break;
+    case 4: r.dx=(1-e)*W; break;
+    case 5: r.dy=(1-e)*H; break;
+    case 6: r.scale=0.3+0.7*e; r.alpha=Math.min(1,p*2); break;
+    case 7: r.scale=1.8-0.8*e; r.alpha=Math.min(1,p*2); break;
+    case 8: r.rot=-(1-e)*180; r.scale=0.4+0.6*e; r.alpha=Math.min(1,p*2); break;
+    case 9: r.clip=[0,0,W*e,H]; break;
+    case 10: r.clip=[W*(1-e),0,W*e,H]; break;
+    case 11: r.blur=(1-p)*0.05*Math.min(W,H); r.alpha=Math.min(1,p*2); break;
+    case 12: r.glitch=1-p; break;
+    case 13: r.sx=Math.max(e,0.02); break;
+  }
+  return r;
 }
 function fxCalc(c,local){
-  const r={dx:0,dy:0,scale:1}, W=canvas.width;
+  const r={dx:0,dy:0,scale:1,rot:0,blur:0}, W=canvas.width;
   if(c.effect===1){ r.dx=Math.sin(local*38)*W*0.008; r.dy=Math.cos(local*31)*W*0.008; r.scale=1.03; }
   else if(c.effect===2){ r.scale=1+0.06*Math.max(0,Math.sin(local*PI*3)); }
+  else if(c.effect===8){ r.dx=(Math.random()-0.5)*W*0.004; }
+  else if(c.effect===9){ r.blur=0.014*Math.min(canvas.width,canvas.height)*Math.max(0,Math.sin(local*PI*2)); }
+  else if(c.effect===12){ r.scale=1+0.2*clamp(local/Math.max(c.len,0.5),0,1); }
+  else if(c.effect===13){ r.rot=3*Math.sin(local*3); r.scale=1.06; }
+  else if(c.effect===17){ r.scale=1+0.08*Math.pow(Math.max(0,Math.sin(local*PI*2.5)),3); }
   return r;
 }
 let noiseCv=null;
@@ -575,9 +998,10 @@ function vignette(strength){
   g.addColorStop(0,'rgba(0,0,0,0)'); g.addColorStop(1,'rgba(0,0,0,'+strength+')');
   ctx.save(); ctx.fillStyle=g; ctx.fillRect(0,0,W,H); ctx.restore();
 }
-function filterStr(c){
+function filterStr(c,xb){
   const a=c.adj, p=[], f=FILTERS[c.filter]?FILTERS[c.filter].css:'';
   if(f) p.push(f);
+  if(xb>0.3) p.push('blur('+xb+'px)');
   if(a.b) p.push('brightness('+(1+a.b/100)+')');
   if(a.c) p.push('contrast('+(1+a.c/100)+')');
   if(a.s) p.push('saturate('+(1+a.s/100)+')');
@@ -617,23 +1041,52 @@ function drawClip(c,local){
     ctx.save(); if(FILTER_OK) ctx.filter='blur('+Math.round(Math.min(W,H)*0.03)+'px) brightness(0.8)';
     ctx.drawImage(el,(W-sw*s2)/2,(H-sh*s2)/2,sw*s2,sh*s2); ctx.restore();
   }
-  const a=animCalc(c,local,c.len), fx=fxCalc(c,local);
+  const a=animCalc(c,local,c.len), fx=fxCalc(c,local), tr=trCalc(c,local);
   ctx.save();
-  ctx.translate(W/2+c.px*W+a.dx+fx.dx,H/2+c.py*H+a.dy+fx.dy);
-  ctx.rotate(c.rot*PI/180);
-  const sc=c.scale*a.scale*fx.scale;
-  ctx.scale((c.flip?-1:1)*sc,sc);
-  ctx.globalAlpha=clamp(c.opacity*a.alpha,0,1);
-  if(FILTER_OK) ctx.filter=filterStr(c);
+  if(tr.clip){ ctx.beginPath(); ctx.rect(tr.clip[0],tr.clip[1],tr.clip[2],tr.clip[3]); ctx.clip(); }
+  ctx.translate(W/2+c.px*W+a.dx+fx.dx+tr.dx,H/2+c.py*H+a.dy+fx.dy+tr.dy);
+  ctx.rotate((c.rot+a.rot+fx.rot+tr.rot)*PI/180);
+  const sc=c.scale*a.scale*fx.scale*tr.scale;
+  ctx.scale((c.flip?-1:1)*sc*a.sx*tr.sx,sc);
+  ctx.globalAlpha=clamp(c.opacity*a.alpha*tr.alpha,0,1);
+  if(FILTER_OK) ctx.filter=filterStr(c,a.blur+fx.blur+tr.blur);
   ctx.drawImage(el,-dw/2,-dh/2,dw,dh);
   ctx.restore();
   const ad=c.adj;
   if(ad.t){ ctx.save(); ctx.globalCompositeOperation='soft-light'; ctx.globalAlpha=Math.abs(ad.t)/100*0.7; ctx.fillStyle=ad.t>0?'#ff9a3c':'#3c8cff'; ctx.fillRect(0,0,W,H); ctx.restore(); }
   if(ad.v) vignette(ad.v/100*0.85);
-  if(c.effect===3){ const ph=local%2; if(ph<0.3){ ctx.save(); ctx.globalAlpha=(1-ph/0.3)*0.75; ctx.fillStyle='#fff'; ctx.fillRect(0,0,W,H); ctx.restore(); } }
-  else if(c.effect===4){ ctx.save(); ctx.globalCompositeOperation='overlay'; ctx.globalAlpha=0.28; const n=getNoise(); const ox=-Math.random()*160, oy=-Math.random()*160; for(let x=ox;x<W;x+=160) for(let y=oy;y<H;y+=160) ctx.drawImage(n,x,y); ctx.restore(); }
-  else if(c.effect===5) vignette(0.85);
-  else if(c.effect===6){ const ph=local%0.9; if(ph<0.18){ for(let i=0;i<5;i++){ const y=Math.random()*H*0.9, h=H*(0.02+Math.random()*0.06), off=(Math.random()-0.5)*W*0.08; ctx.drawImage(canvas,0,y,W,h,off,y,W,h); } } }
+  postFx(c.effect,local);
+}
+function postFx(e,local){
+  const W=canvas.width,H=canvas.height;
+  if(e===3){ const ph=local%2; if(ph<0.3){ ctx.save(); ctx.globalAlpha=(1-ph/0.3)*0.75; ctx.fillStyle='#fff'; ctx.fillRect(0,0,W,H); ctx.restore(); } }
+  else if(e===4){ ctx.save(); ctx.globalCompositeOperation='overlay'; ctx.globalAlpha=0.28; const n=getNoise(); const ox=-Math.random()*160, oy=-Math.random()*160; for(let x=ox;x<W;x+=160) for(let y=oy;y<H;y+=160) ctx.drawImage(n,x,y); ctx.restore(); }
+  else if(e===5) vignette(0.85);
+  else if(e===7){ const o=W*0.008; ctx.save(); ctx.globalCompositeOperation='screen'; ctx.globalAlpha=0.35; ctx.drawImage(canvas,o,0); ctx.drawImage(canvas,-o,0); ctx.restore(); }
+  else if(e===8){ ctx.save(); ctx.fillStyle='rgba(0,0,0,0.2)'; const st=Math.max(3,Math.round(H/200)); for(let y=0;y<H;y+=st*2) ctx.fillRect(0,y,W,st); ctx.globalCompositeOperation='overlay'; ctx.globalAlpha=0.15; const n=getNoise(); for(let x=0;x<W;x+=160) for(let y=0;y<H;y+=160) ctx.drawImage(n,x,y); ctx.restore(); }
+  else if(e===10){ ctx.save(); ctx.translate(W,0); ctx.scale(-1,1); ctx.drawImage(canvas,0,0,W/2,H,0,0,W/2,H); ctx.restore(); }
+  else if(e===11){ if(Math.floor(local*12)%3===0){ ctx.save(); ctx.fillStyle='rgba(0,0,0,0.45)'; ctx.fillRect(0,0,W,H); ctx.restore(); } }
+  else if(e===14){ ctx.save(); ctx.fillStyle='#000'; ctx.fillRect(0,0,W,H*0.12); ctx.fillRect(0,H*0.88,W,H*0.12); ctx.restore(); }
+  else if(e===15){ const ph=local%1.2; if(ph<0.25){ ctx.save(); ctx.globalAlpha=(1-ph/0.25)*0.6; ctx.fillStyle='#ff2a2a'; ctx.fillRect(0,0,W,H); ctx.restore(); } }
+  else if(e===16){ if(Math.floor(local*10)%2===0){ ctx.save(); ctx.globalAlpha=0.45; ctx.fillStyle='#fff'; ctx.fillRect(0,0,W,H); ctx.restore(); } }
+  else if(e===18&&FILTER_OK){ ctx.save(); ctx.filter='blur('+Math.round(Math.min(W,H)*0.012)+'px) brightness(1.2)'; ctx.globalCompositeOperation='screen'; ctx.globalAlpha=0.4; ctx.drawImage(canvas,0,0); ctx.restore(); }
+  else if(e===6){ const ph=local%0.9; if(ph<0.18){ for(let i=0;i<5;i++){ const y=Math.random()*H*0.9, h=H*(0.02+Math.random()*0.06), off=(Math.random()-0.5)*W*0.08; ctx.drawImage(canvas,0,y,W,h,off,y,W,h); } } }
+}
+let flTmp=null;
+function drawFL(f,local){
+  const W=canvas.width,H=canvas.height;
+  if(f.filter&&FILTER_OK&&f.strength>0){
+    if(!flTmp) flTmp=document.createElement('canvas');
+    if(flTmp.width!==W||flTmp.height!==H){ flTmp.width=W; flTmp.height=H; }
+    const tc=flTmp.getContext('2d'); tc.clearRect(0,0,W,H); tc.drawImage(canvas,0,0);
+    ctx.save(); ctx.globalAlpha=clamp(f.strength/100,0,1); ctx.filter=(FILTERS[f.filter]&&FILTERS[f.filter].css)||'none'; ctx.drawImage(flTmp,0,0); ctx.restore();
+  }
+  if(f.effect) postFx(f.effect,local);
+}
+function drawTransPost(c,local){
+  const tr=trCalc(c,local), W=canvas.width, H=canvas.height;
+  if(tr.glitch>0){ for(let i=0;i<8;i++){ const y=Math.random()*H*0.9, h=H*(0.02+Math.random()*0.07), off=(Math.random()-0.5)*W*0.2*tr.glitch; ctx.drawImage(canvas,0,y,W,h,off,y,W,h); } }
+  if(tr.over){ ctx.save(); ctx.globalAlpha=clamp(tr.over[1],0,1); ctx.fillStyle=tr.over[0]; ctx.fillRect(0,0,W,H); ctx.restore(); }
 }
 function drawOverlay(o){
   const W=canvas.width,H=canvas.height,u=Math.min(W,H);
@@ -641,7 +1094,8 @@ function drawOverlay(o){
   let dh=dw;
   if(o.kind!=='emoji'){
     const el=o.el; if(!el) return;
-    const sw=o.kind==='img'?el.naturalWidth:el.videoWidth, sh=o.kind==='img'?el.naturalHeight:el.videoHeight;
+    const isI=o.kind==='img'||o.kind==='gif', G=o.kind==='gif'&&o.gif&&o.gif.fr.length?o.gif:null;
+    const sw=G?G.fr[0].bmp.width:isI?el.naturalWidth:el.videoWidth, sh=G?G.fr[0].bmp.height:isI?el.naturalHeight:el.videoHeight;
     if(!sw||(o.kind==='vid'&&el.readyState<2)) return;
     dh=dw*sh/sw;
   }
@@ -654,6 +1108,10 @@ function drawOverlay(o){
   if(o.kind==='emoji'){
     ctx.font=Math.round(dw*0.85)+'px "Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",sans-serif';
     ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(o.emoji,0,dw*0.04);
+  } else if(o.kind==='gif'&&o.gif&&o.gif.fr.length){
+    const g=o.gif, ph=g.total>0?((t-o.start)%g.total+g.total)%g.total:0; let f=g.fr[0];
+    for(const x of g.fr){ if(x.at<=ph) f=x; else break; }
+    ctx.drawImage(f.bmp,-dw/2,-dh/2,dw,dh);
   } else ctx.drawImage(o.el,-dw/2,-dh/2,dw,dh);
   ctx.restore();
   o._box={x:o.x*W-dw/2,y:o.y*H-dh/2,w:dw,h:dh};
@@ -687,9 +1145,10 @@ function render(force){
   if(c&&!ready&&!force) return;
   ctx.setTransform(1,0,0,1,0,0); ctx.globalAlpha=1; ctx.globalCompositeOperation='source-over';
   ctx.fillStyle=bg.mode==='color'?bg.color:'#000'; ctx.fillRect(0,0,W,H);
-  if(ready) drawClip(c,loc.local);
-  for(const o of overlays){ if(t>=o.start&&t<=o.end) drawOverlay(o); else o._box=null; }
-  for(const it of texts){ if(t>=it.start&&t<=it.end) drawText(it); else it._box=null; }
+  if(ready){ drawClip(c,loc.local); drawTransPost(c,loc.local); }
+  for(const o of byLane(overlays)){ if(t>=o.start&&t<=o.end) drawOverlay(o); else o._box=null; }
+  for(const f of byLane(fls)){ if(t>=f.start&&t<=f.end) drawFL(f,t-f.start); }
+  for(const it of byLane(texts)){ if(t>=it.start&&t<=it.end) drawText(it); else it._box=null; }
   if(!exporting&&!playing&&sel&&(sel.type==='text'||sel.type==='ov')){
     const it=selItem();
     if(it&&it._box){ ctx.save(); ctx.strokeStyle='#5eead4'; ctx.lineWidth=Math.max(2,W/360); ctx.setLineDash([W/60,W/90]); ctx.strokeRect(it._box.x,it._box.y,it._box.w,it._box.h); ctx.restore(); }
@@ -801,43 +1260,62 @@ function tick(now){
 
 /* ---------- timeline ---------- */
 function renderLcol(){
-  lcol.innerHTML=
-    '<button class="lb sq" data-act="addov" style="left:8px;top:'+ROW.ov+'px" aria-label="ওভারলে যোগ করুন">'+ic('overlay')+'</button>'+
-    '<button class="lb big" id="btnMute" aria-pressed="'+muteMain+'" style="left:6px;top:'+ROW.main+'px" aria-label="ক্লিপের শব্দ বন্ধ">'+ic(muteMain?'mute':'volume')+'<span>মিউট</span></button>'+
-    '<button class="lb big" data-act="cover" style="left:46px;top:'+ROW.main+'px" aria-label="কভার সেভ করুন">'+ic('cover')+'<span>কভার</span></button>'+
-    '<button class="lb sq" data-act="addaudio" style="left:8px;top:'+ROW.audio+'px" aria-label="অডিও যোগ করুন">'+ic('music')+'</button>'+
-    '<button class="lb sq" data-act="addtext" style="left:8px;top:'+ROW.text+'px" aria-label="টেক্সট যোগ করুন">'+ic('text')+'</button>';
+  layoutRows();
+  const pair=(addAct,k,icon,label)=>
+    '<button class="lb sq" data-act="'+addAct+'" style="left:8px;top:'+rowTop(k,0)+'px" aria-label="'+label+'">'+ic(icon)+'</button>'+
+    '<button class="lb sq" data-act="addlane-'+k+'" style="left:48px;top:'+rowTop(k,0)+'px" aria-label="লেয়ার যোগ করুন">'+ic('layers')+'</button>';
+  let h='';
+  if(lanes.fl>0) h+=pair('addfl','fl','filter','ফিল্টার লেয়ার যোগ করুন');
+  h+=pair('addov','ov','overlay','ওভারলে যোগ করুন');
+  h+='<button class="lb big" id="btnMute" aria-pressed="'+muteMain+'" style="left:6px;top:'+ROW.main+'px" aria-label="ক্লিপের শব্দ বন্ধ">'+ic(muteMain?'mute':'volume')+'<span>মিউট</span></button>'+
+    '<button class="lb big" data-act="cover" style="left:46px;top:'+ROW.main+'px" aria-label="কভার সেভ করুন">'+ic('cover')+'<span>কভার</span></button>';
+  h+=pair('addaudio','audio','music','অডিও যোগ করুন');
+  h+=pair('addtext','text','text','টেক্সট যোগ করুন');
+  lcol.innerHTML=h;
+  lcol.style.height=Math.max(ROW.bottom,tl.clientHeight)+'px';
+  lcol.style.transform='translateY('+(-tl.scrollTop)+'px)';
 }
 function renderTimeline(){
+  layoutRows();
   const W=tl.clientWidth||360, padL=W/2;
   tlIn.style.width=(padL*2+total*pps+60)+'px';
+  tlIn.style.height=Math.max(ROW.bottom,tl.clientHeight)+'px';
   const steps=[1,2,5,10,15,30,60,120,300,600];
   const step=steps.find(s=>s*pps>=64)||600;
   let h='<div class="ruler">';
   for(let s=0;s<=total+1e-6;s+=step) h+='<span class="tick" style="left:'+(padL+s*pps)+'px">'+fmtS(s)+'</span>';
   h+='</div>';
-  for(const k of ['ov','main','audio','text']) h+='<div class="row" style="top:'+ROW[k]+'px;height:'+(k==='main'?56:28)+'px"></div>';
-  if(!audios.length) h+='<button class="addrow" data-act="addaudio" style="left:'+(padL+10)+'px;top:'+ROW.audio+'px">'+ic('plus')+'অডিও যোগ করুন</button>';
-  if(!texts.length) h+='<button class="addrow" data-act="addtext" style="left:'+(padL+10)+'px;top:'+ROW.text+'px">'+ic('plus')+'টেক্সট যোগ করুন</button>';
-  if(!overlays.length) h+='<button class="addrow" data-act="addov" style="left:'+(padL+10)+'px;top:'+ROW.ov+'px">'+ic('plus')+'ছবি/ভিডিও ওভারলে</button>';
+  for(let L=0;L<lanes.fl;L++) h+='<div class="row" style="top:'+rowTop('fl',L)+'px;height:28px"></div>';
+  for(let L=0;L<ROW.nO;L++) h+='<div class="row" style="top:'+rowTop('ov',L)+'px;height:28px"></div>';
+  h+='<div class="row" style="top:'+ROW.main+'px;height:56px"></div>';
+  for(let L=0;L<ROW.nA;L++) h+='<div class="row" style="top:'+rowTop('audio',L)+'px;height:28px"></div>';
+  for(let L=0;L<ROW.nT;L++) h+='<div class="row" style="top:'+rowTop('text',L)+'px;height:28px"></div>';
+  if(!audios.length) h+='<button class="addrow" data-act="addaudio" style="left:'+(padL+10)+'px;top:'+rowTop('audio',0)+'px">'+ic('plus')+'অডিও যোগ করুন</button>';
+  if(!texts.length) h+='<button class="addrow" data-act="addtext" style="left:'+(padL+10)+'px;top:'+rowTop('text',0)+'px">'+ic('plus')+'টেক্সট যোগ করুন</button>';
+  if(!overlays.length) h+='<button class="addrow" data-act="addov" style="left:'+(padL+10)+'px;top:'+rowTop('ov',0)+'px">'+ic('plus')+'ছবি/ভিডিও ওভারলে</button>';
   for(const c of clips){
     const s=sel&&sel.type==='clip'&&sel.id===c.id;
     const tags=(c.freeze?'❄ ':'')+c.len.toFixed(1)+'s'+(c.speed!==1&&!c.fixed?' · '+c.speed+'×':'')+(c.filter?' · ◐':'')+(c.effect?' · ✦':'');
     h+='<div class="blk clip" data-type="clip" data-id="'+c.id+'" aria-selected="'+s+'" style="left:'+(padL+c.start*pps+1)+'px;width:'+Math.max(c.len*pps-2,8)+'px;top:'+ROW.main+'px;height:56px;'+(c.thumb?"background-image:url('"+c.thumb+"')":'')+'"><span>'+tags+'</span></div>';
   }
   h+='<button class="plus" data-act="addv" style="left:'+(padL+total*pps+8)+'px;top:'+ROW.main+'px" aria-label="আরও ভিডিও বা ছবি যোগ করুন">'+ic('plus')+'</button>';
+  for(const f of fls){
+    const s=sel&&sel.type==='fl'&&sel.id===f.id;
+    const nm=(f.filter?FILTERS[f.filter].n:'')+(f.effect?(f.filter?' + ':'')+EFFECTS[f.effect]:'');
+    h+='<div class="blk fl" data-type="fl" data-id="'+f.id+'" aria-selected="'+s+'" style="left:'+(padL+f.start*pps)+'px;width:'+Math.max((f.end-f.start)*pps,12)+'px;top:'+rowTop('fl',f.lane)+'px;height:28px">◐ '+esc(nm||'ফিল্টার')+'</div>';
+  }
   for(const o of overlays){
     const s=sel&&sel.type==='ov'&&sel.id===o.id;
-    h+='<div class="blk ov" data-type="ov" data-id="'+o.id+'" aria-selected="'+s+'" style="left:'+(padL+o.start*pps)+'px;width:'+Math.max((o.end-o.start)*pps,12)+'px;top:'+ROW.ov+'px;height:28px">'+(o.kind==='emoji'?esc(o.emoji):esc(o.name))+'</div>';
+    h+='<div class="blk ov" data-type="ov" data-id="'+o.id+'" aria-selected="'+s+'" style="left:'+(padL+o.start*pps)+'px;width:'+Math.max((o.end-o.start)*pps,12)+'px;top:'+rowTop('ov',o.lane)+'px;height:28px">'+(o.kind==='emoji'?esc(o.emoji):esc(o.name))+'</div>';
   }
   for(const a of audios){
     const s=sel&&sel.type==='audio'&&sel.id===a.id;
     const w=Math.max(Math.min(a.dur,Math.max(total-a.start,0.2))*pps,12);
-    h+='<div class="blk audio" data-type="audio" data-id="'+a.id+'" aria-selected="'+s+'" style="left:'+(padL+a.start*pps)+'px;width:'+w+'px;top:'+ROW.audio+'px;height:28px">♪ '+esc(a.name)+'</div>';
+    h+='<div class="blk audio" data-type="audio" data-id="'+a.id+'" aria-selected="'+s+'" style="left:'+(padL+a.start*pps)+'px;width:'+w+'px;top:'+rowTop('audio',a.lane)+'px;height:28px">♪ '+esc(a.name)+'</div>';
   }
   for(const it of texts){
     const s=sel&&sel.type==='text'&&sel.id===it.id;
-    h+='<div class="blk text" data-type="text" data-id="'+it.id+'" aria-selected="'+s+'" style="left:'+(padL+it.start*pps)+'px;width:'+Math.max((it.end-it.start)*pps,12)+'px;top:'+ROW.text+'px;height:28px">'+esc(it.text.replace(/\n/g,' '))+'</div>';
+    h+='<div class="blk text" data-type="text" data-id="'+it.id+'" aria-selected="'+s+'" style="left:'+(padL+it.start*pps)+'px;width:'+Math.max((it.end-it.start)*pps,12)+'px;top:'+rowTop('text',it.lane)+'px;height:28px">'+esc(it.text.replace(/\n/g,' '))+'</div>';
   }
   tlIn.innerHTML=h;
   renderLcol();
@@ -845,28 +1323,29 @@ function renderTimeline(){
 }
 
 /* ---------- toolbar and panels ---------- */
-const TOP_TOOLS=[['edit','edit','এডিট'],['audio','music','অডিও'],['text','text','টেক্সট'],['fx','fx','এফেক্ট'],['overlay','overlay','ওভারলে'],['captions','captions','ক্যাপশন'],['filter','filter','ফিল্টার'],['adjust','adjust','অ্যাডজাস্ট'],['stickers','sticker','স্টিকার'],['ratio','ratio','অ্যাসপেক্ট'],['bg','bg','ব্যাকগ্রাউন্ড']];
-const TOOL_OF={fx:'effects',filter:'filter',adjust:'adjust',anim:'anim',volume:'volume',speed:'speed',trim:'trim',crop:'crop',opacity:'opacity',tedit:'tedit',tstyle:'tstyle',tanim:'anim',ttime:'time',otrans:'otrans',oopacity:'oopacity',oanim:'anim',otime:'time',ovol:'ovol',avol:'avol',atime:'time'};
+const TOP_TOOLS=[['edit','edit','এডিট'],['audio','music','অডিও'],['text','text','টেক্সট'],['fx','fx','এফেক্ট'],['overlay','overlay','ওভারলে'],['captions','captions','ক্যাপশন'],['addfl','filter','ফিল্টার লেয়ার'],['filter','filter','ফিল্টার'],['adjust','adjust','অ্যাডজাস্ট'],['stickers','sticker','স্টিকার'],['ratio','ratio','অ্যাসপেক্ট'],['bg','bg','ব্যাকগ্রাউন্ড']];
+const TOOL_OF={flfilter:'flfilter',flfx:'flfx',flstr:'flstr',ftime:'time',fx:'effects',trans:'trans',filter:'filter',adjust:'adjust',anim:'anim',volume:'volume',speed:'speed',trim:'trim',crop:'crop',opacity:'opacity',tedit:'tedit',tstyle:'tstyle',tanim:'anim',ttime:'time',otrans:'otrans',oopacity:'oopacity',oanim:'anim',otime:'time',ovol:'ovol',avol:'avol',atime:'time'};
 function toolbarItems(){
   const it=selItem();
   if(!sel||!it) return TOP_TOOLS;
   if(sel.type==='clip'){
     const L=[['split','split','স্প্লিট']];
     if(it.kind==='video'&&!it.freeze) L.push(['volume','volume','ভলিউম']);
-    L.push(['anim','anim','অ্যানিমেশন'],['fx','fx','এফেক্ট'],['del','trash','ডিলিট'],['speed','speed',it.fixed?'সময়':'স্পিড']);
+    L.push(['anim','anim','অ্যানিমেশন'],['trans','anim','ট্রানজিশন'],['fx','fx','এফেক্ট'],['del','trash','ডিলিট'],['speed','speed',it.fixed?'সময়':'স্পিড']);
     if(!it.fixed) L.push(['trim','trim','ট্রিম']);
     L.push(['crop','crop','ক্রপ'],['dup','dup','ডুপ্লিকেট'],['replace','replace','রিপ্লেস']);
     if(it.kind==='video'&&!it.freeze) L.push(['freeze','freeze','ফ্রিজ']);
     L.push(['adjust','adjust','অ্যাডজাস্ট'],['filter','filter','ফিল্টার'],['opacity','opacity','অপাসিটি'],['fit','fit',it.fill?'ফিল':'ফিট'],['prev','left','আগে'],['next','right','পরে']);
     return L;
   }
-  if(sel.type==='text') return [['tedit','text','এডিট'],['tstyle','filter','স্টাইল'],['tanim','anim','অ্যানিমেশন'],['ttime','trim','সময়'],['dup','dup','ডুপ্লিকেট'],['del','trash','ডিলিট']];
+  if(sel.type==='text') return [['tedit','text','এডিট'],['tstyle','filter','স্টাইল'],['tanim','anim','অ্যানিমেশন'],['ttime','trim','সময়'],['lup','up','লেয়ার ↑'],['ldown','down','লেয়ার ↓'],['dup','dup','ডুপ্লিকেট'],['del','trash','ডিলিট']];
   if(sel.type==='ov'){
     const L=[['otrans','crop','আকার'],['oopacity','opacity','অপাসিটি'],['oanim','anim','অ্যানিমেশন'],['otime','trim','সময়']];
     if(it.kind==='vid') L.push(['ovol','volume','ভলিউম']);
-    L.push(['dup','dup','ডুপ্লিকেট'],['del','trash','ডিলিট']); return L;
+    L.push(['lup','up','লেয়ার ↑'],['ldown','down','লেয়ার ↓'],['dup','dup','ডুপ্লিকেট'],['del','trash','ডিলিট']); return L;
   }
-  return [['avol','volume','ভলিউম'],['atime','trim','সময়'],['dup','dup','ডুপ্লিকেট'],['del','trash','ডিলিট']];
+  if(sel.type==='fl') return [['flfilter','filter','ফিল্টার'],['flfx','fx','এফেক্ট'],['flstr','opacity','মাত্রা'],['ftime','trim','সময়'],['lup','up','লেয়ার ↑'],['ldown','down','লেয়ার ↓'],['dup','dup','ডুপ্লিকেট'],['del','trash','ডিলিট']];
+  return [['avol','volume','ভলিউম'],['atime','trim','সময়'],['lup','up','লেয়ার ↑'],['ldown','down','লেয়ার ↓'],['dup','dup','ডুপ্লিকেট'],['del','trash','ডিলিট']];
 }
 function renderToolbar(){
   const items=toolbarItems(), top=items===TOP_TOOLS;
@@ -880,10 +1359,20 @@ function renderToolbar(){
 }
 const sl=(k,label,min,max,step,val,disp)=>'<div class="field"><label for="s-'+k+'">'+label+'</label><input id="s-'+k+'" type="range" data-k="'+k+'" min="'+min+'" max="'+max+'" step="'+step+'" value="'+val+'"><output id="o-'+k+'">'+disp+'</output></div>';
 const chip=(a,v,label,on,style)=>'<button class="chip" type="button" data-a="'+a+'" data-v="'+esc(v)+'" aria-pressed="'+!!on+'"'+(style?' style="'+style+'"':'')+'>'+label+'</button>';
+let gfOpen=false;
+function fontAddRow(){
+  return '<div class="chips"><button class="chip" type="button" data-a="fontfile">＋ ফন্ট ফাইল</button><button class="chip" type="button" data-a="fontgoogle">＋ Google ফন্ট</button></div>'+
+    (gfOpen?'<div class="gfrow"><input id="gfName" type="text" placeholder="ফন্টের নাম, যেমন Anek Bangla" aria-label="Google ফন্টের নাম"><button class="chip" type="button" data-a="gfgo">যোগ করুন</button></div>':'');
+}
 function animPanel(it){
   return '<p class="lbl">শুরুতে</p><div class="chips">'+ANIMS.map((n,i)=>chip('aIn',i,n,it.animIn===i)).join('')+'</div>'+
     '<p class="lbl">শেষে</p><div class="chips">'+ANIMS.map((n,i)=>chip('aOut',i,n,it.animOut===i)).join('')+'</div>'+
     sl('adur','সময়',0.2,2,0.1,it.animDur,it.animDur.toFixed(1)+'s');
+}
+function transPanel(it){
+  return '<div class="chips">'+TRANS.map((n,i)=>chip('trans',i,n,(it.trans||0)===i)).join('')+'</div>'+
+    sl('tdur','সময়',0.2,1.5,0.1,it.transDur||0.5,(it.transDur||0.5).toFixed(1)+'s')+
+    '<p class="hint">ট্রানজিশন ক্লিপের শুরুতে চলে।</p>';
 }
 function timePanel(it){
   const end=sel.type==='audio'?it.start+it.dur:it.end;
@@ -894,7 +1383,7 @@ function panelContent(){
   const it=selItem();
   if(!sel||!it){
     if(tool==='captions') return ['ক্যাপশন','<textarea id="capIn" rows="4" placeholder="প্রতি লাইনে একটি ক্যাপশন লিখুন"></textarea><div class="chips"><button class="chip pri" type="button" data-a="capgo">টাইমলাইনে বসান</button></div><p class="hint">লাইনগুলো পুরো ভিডিওতে সমান সময় ভাগ করে বসবে। পরে টাইমলাইন থেকে প্রতিটির সময় ও স্টাইল বদলাতে পারবেন। কণ্ঠস্বর থেকে অটো ক্যাপশন ব্রাউজারে সম্ভব নয়।</p>'];
-    if(tool==='stickers') return ['স্টিকার','<div class="stk">'+STICKERS.map(s=>'<button type="button" data-a="stk" data-v="'+s+'" aria-label="স্টিকার">'+s+'</button>').join('')+'</div>'];
+    if(tool==='stickers') return ['স্টিকার ও GIF','<div class="chips"><button class="chip pri" type="button" data-a="addgif">GIF যোগ করুন</button><button class="chip" type="button" data-a="addov2">ছবি/স্টিকার যোগ</button></div><div class="stk">'+STICKERS.map(s=>'<button type="button" data-a="stk" data-v="'+s+'" aria-label="স্টিকার">'+s+'</button>').join('')+'</div>'];
     if(tool==='ratio') return ['অ্যাসপেক্ট রেশিও','<div class="chips">'+RATIOS.map(k=>chip('ratio',k,k+' · '+RATIO_NAMES[k],ratio===k)).join('')+'</div>'];
     if(tool==='bg') return ['ব্যাকগ্রাউন্ড','<div class="swatches">'+BG_COLORS.map(col=>'<button class="swatch" type="button" data-a="bg" data-v="'+col+'" aria-label="রং '+col+'" aria-pressed="'+(bg.mode==='color'&&bg.color===col)+'" style="background:'+col+'"></button>').join('')+'<input type="color" id="bgcol" data-k="bgcol" value="'+bg.color+'" aria-label="নিজের রং"></div><div class="chips">'+chip('bg','blur','ঝাপসা ব্যাকগ্রাউন্ড',bg.mode==='blur')+'</div><p class="hint">ভিডিও ফ্রেমে পুরো না ভরলে বাকি জায়গায় এটি দেখা যাবে।</p>'];
     return null;
@@ -906,6 +1395,7 @@ function panelContent(){
       case 'speed': return c.fixed?['সময়',sl('hold','সময়',0.5,30,0.1,c.hold,c.hold.toFixed(1)+'s')]:['স্পিড','<div class="chips">'+[0.25,0.5,0.75,1,1.5,2,3,4].map(s=>chip('speed',s,s+'×',c.speed===s)).join('')+'</div>'+sl('speed','স্পিড',0.25,4,0.05,c.speed,c.speed.toFixed(2)+'×')];
       case 'trim': return ['ট্রিম',sl('in','শুরু',0,c.dur,0.05,c.in,c.in.toFixed(2)+'s')+sl('out','শেষ',0,c.dur,0.05,c.out,c.out.toFixed(2)+'s')+'<p class="hint">মূল ভিডিও '+c.dur.toFixed(1)+'s · এখন ক্লিপ <span id="o-len">'+c.len.toFixed(1)+'s</span></p>'];
       case 'anim': return ['অ্যানিমেশন',animPanel(c)];
+      case 'trans': return ['ট্রানজিশন',transPanel(c)];
       case 'effects': return ['এফেক্ট','<div class="chips">'+EFFECTS.map((n,i)=>chip('fx',i,n,c.effect===i)).join('')+'</div>'];
       case 'crop': return ['ক্রপ ও ট্রান্সফর্ম',sl('scale','জুম',10,400,5,Math.round(c.scale*100),Math.round(c.scale*100)+'%')+sl('rot','ঘোরান',-180,180,1,c.rot,c.rot+'°')+sl('px','ডানে-বামে',-100,100,1,Math.round(c.px*100),Math.round(c.px*100)+'%')+sl('py','উপরে-নিচে',-100,100,1,Math.round(c.py*100),Math.round(c.py*100)+'%')+'<div class="chips">'+chip('flip','',' আয়না (উল্টো)',c.flip)+chip('creset','','রিসেট',false)+'</div>'];
       case 'adjust': return ['অ্যাডজাস্ট',sl('ab','উজ্জ্বলতা',-100,100,1,c.adj.b,c.adj.b)+sl('ac','কনট্রাস্ট',-100,100,1,c.adj.c,c.adj.c)+sl('as','স্যাচুরেশন',-100,100,1,c.adj.s,c.adj.s)+sl('at','তাপমাত্রা',-100,100,1,c.adj.t,c.adj.t)+sl('av','ভিগনেট',0,100,1,c.adj.v,c.adj.v)+sl('abl','ঝাপসা',0,100,1,c.adj.bl,c.adj.bl)+'<div class="chips">'+chip('areset','','রিসেট',false)+'</div>'+(FILTER_OK?'':'<p class="hint">এই ব্রাউজারে উজ্জ্বলতা, কনট্রাস্ট, স্যাচুরেশন ও ঝাপসা কাজ করে না। Chrome বা Firefox-এ খুলুন।</p>')];
@@ -916,7 +1406,7 @@ function panelContent(){
   }
   if(sel.type==='text'){
     if(tool==='tedit') return ['টেক্সট','<textarea id="txIn" data-k="ttext" rows="2" maxlength="140" aria-label="টেক্সট">'+esc(it.text)+'</textarea><p class="hint">প্রিভিউতে আঙুল দিয়ে টেনে লেখার জায়গা বদলান।</p>'];
-    if(tool==='tstyle') return ['স্টাইল','<div class="chips">'+FONTS.map((f,i)=>chip('tfont',i,f.n,it.font===i,'font-family:'+f.css+',var(--ui)')).join('')+'</div><div class="swatches">'+TEXT_COLORS.map(col=>'<button class="swatch" type="button" data-a="tcolor" data-v="'+col+'" aria-label="রং '+col+'" aria-pressed="'+(it.color===col)+'" style="background:'+col+'"></button>').join('')+'<input type="color" data-k="tcol" value="'+it.color+'" aria-label="নিজের রং"></div><div class="chips">'+TEXT_STYLES.map(([k,l])=>chip('tstyle',k,l,it.style===k)).join('')+'</div>'+sl('tsize','সাইজ',3,16,0.5,it.size,it.size)+sl('trot','ঘোরান',-45,45,1,it.rot,it.rot+'°')];
+    if(tool==='tstyle') return ['স্টাইল','<div class="chips">'+FONTS.map((f,i)=>chip('tfont',i,f.n,it.font===i,'font-family:'+f.css+',var(--ui)')).join('')+'</div>'+fontAddRow()+'<div class="swatches">'+TEXT_COLORS.map(col=>'<button class="swatch" type="button" data-a="tcolor" data-v="'+col+'" aria-label="রং '+col+'" aria-pressed="'+(it.color===col)+'" style="background:'+col+'"></button>').join('')+'<input type="color" data-k="tcol" value="'+it.color+'" aria-label="নিজের রং"></div><div class="chips">'+TEXT_STYLES.map(([k,l])=>chip('tstyle',k,l,it.style===k)).join('')+'</div>'+sl('tsize','সাইজ',3,16,0.5,it.size,it.size)+sl('trot','ঘোরান',-45,45,1,it.rot,it.rot+'°')];
     if(tool==='anim') return ['অ্যানিমেশন',animPanel(it)];
     if(tool==='time') return ['সময়',timePanel(it)];
     return null;
@@ -927,6 +1417,13 @@ function panelContent(){
     if(tool==='anim') return ['অ্যানিমেশন',animPanel(it)];
     if(tool==='time') return ['সময়',timePanel(it)];
     if(tool==='ovol') return ['ভলিউম',sl('ovl','ভলিউম',0,200,5,Math.round(it.volume*100),Math.round(it.volume*100)+'%')];
+    return null;
+  }
+  if(sel.type==='fl'){
+    if(tool==='flfilter') return ['ফিল্টার','<div class="chips">'+FILTERS.map((f,i)=>chip('flf',i,f.n,it.filter===i)).join('')+'</div>'];
+    if(tool==='flfx') return ['এফেক্ট','<div class="chips">'+EFFECTS.map((n,i)=>(i===0||POSTFX.has(i))?chip('flx',i,n,it.effect===i):'').join('')+'</div>'];
+    if(tool==='flstr') return ['মাত্রা',sl('fls','ফিল্টারের মাত্রা',0,100,1,it.strength,it.strength+'%')];
+    if(tool==='time') return ['সময়',timePanel(it)];
     return null;
   }
   if(sel.type==='audio'){
@@ -949,13 +1446,31 @@ function select(s,toolName){
   tool=toolName!==undefined?toolName:(s?(s.type==='text'?'tedit':s.type==='ov'?'otrans':s.type==='audio'?'avol':null):null);
   renderChrome(); renderTimeline(); render();
 }
+let homeTab='edit', pending=null;
+function paintBody(){
+  const home=clips.length===0, c=home?'#f2f8fd':'#0d131a';
+  document.body.style.background=c; document.documentElement.style.background=c;
+  const m=document.querySelector('meta[name=theme-color]'); if(m) m.setAttribute('content',home?'#d4efff':'#0d131a');
+}
+function applyTab(){
+  paintBody();
+  const has=clips.length>0;
+  document.querySelectorAll('#stage .hero').forEach(p=>{ const n=p.dataset.pane||'edit'; p.hidden=has||n!==homeTab; });
+  document.querySelectorAll('#hnav button').forEach(b=>b.setAttribute('aria-current',String(b.dataset.tab===homeTab)));
+}
+function runPending(){
+  if(!pending||!clips.length){ pending=null; return; }
+  const k=pending; pending=null;
+  const CT={trans:1,filter:1,fx:1,anim:1,speed:1,crop:1,adjust:1};
+  if(CT[k]){ select({type:'clip',id:clips[0].id},TOOL_OF[k]); } else act(k);
+}
 function refreshAll(){
   layout(); t=clamp(t,0,total);
   if(sel&&!selItem()){ sel=null; tool=null; }
   const has=clips.length>0;
   if(!has){ sel=null; tool=null; }
   app.classList.toggle('home',!has);
-  frame.hidden=!has; $('#hero').hidden=has;
+  frame.hidden=!has; applyTab();
   renderTimeline(); renderChrome(); updateTime(); updateRes(); fitCanvas(); tlScroll();
 }
 
@@ -965,10 +1480,11 @@ function needClips(){ if(!total){ toast('আগে ভিডিও বা ছব
 function addText(){
   if(!needClips()) return;
   const start=clamp(t,0,Math.max(total-0.5,0));
-  const it={id:uid(),text:'এখানে লিখুন',start,end:Math.min(start+3,total),x:0.5,y:0.78,size:7,color:'#ffffff',style:'outline',font:0,rot:0,animIn:0,animOut:0,animDur:0.5};
-  texts.push(it); commit();
+  const it={id:uid(),text:(lang==='en'?'Type here':'এখানে লিখুন'),start,end:Math.min(start+3,total),x:0.5,y:0.78,size:7,color:'#ffffff',style:'outline',font:0,rot:0,animIn:0,animOut:0,animDur:0.5};
+  it.lane=pickLane('text',it.start,it.end); texts.push(it); commit();
   select({type:'text',id:it.id},'tedit'); setT(start+0.01); ensureFonts();
 }
+function pushText(o){ o.lane=pickLane('text',o.start,o.end); texts.push(o); }
 function splitClip(c,off){
   const n=newClip(JSON.parse(JSON.stringify(Object.assign({},c,{el:null,gain:null,thumb:''}))));
   n.id=uid(); n.el=null; n.gain=null; n.thumb='';
@@ -1016,16 +1532,18 @@ function dupItem(){
     commit(); select({type:'clip',id:n.id},null); setT(n.start+0.05);
   } else if(sel.type==='text'){
     const n=JSON.parse(JSON.stringify(it)); n.id=uid(); n._box=undefined; n.y=clamp(n.y+0.08,0.05,0.95);
-    texts.push(n); commit(); select({type:'text',id:n.id},'tedit');
+    n.lane=pickLane('text',n.start,n.end); texts.push(n); commit(); select({type:'text',id:n.id},'tedit');
   } else if(sel.type==='ov'){
     const n=Object.assign({},it,{id:uid(),x:clamp(it.x+0.06,0.05,0.95),y:clamp(it.y+0.06,0.05,0.95),_box:undefined});
     if(it.kind==='vid'){ n.el=makeVideo(it.url); n.gain=wire(n.el); setVol(n,n.volume); }
-    else if(it.kind==='img') n.el=makeImage(it.url);
-    reg(n); overlays.push(n); commit(); select({type:'ov',id:n.id},'otrans');
+    else if(it.kind==='img'||it.kind==='gif') n.el=makeImage(it.url);
+    n.lane=pickLane('ov',n.start,n.end); reg(n); overlays.push(n); commit(); select({type:'ov',id:n.id},'otrans');
+  } else if(sel.type==='fl'){
+    const n=JSON.parse(JSON.stringify(it)); n.id=uid(); n.lane=pickLane('fl',n.start,n.end); fls.push(n); commit(); select({type:'fl',id:n.id},'flfilter');
   } else if(sel.type==='audio'){
     const el=new Audio(); el.preload='auto'; el.src=it.url;
     const n=Object.assign({},it,{id:uid(),el,gain:null,start:clamp(it.start+it.dur,0,Math.max(total-0.3,0))});
-    n.gain=wire(el); setVol(n,n.vol); reg(n); audios.push(n); commit(); select({type:'audio',id:n.id},'avol');
+    n.gain=wire(el); setVol(n,n.vol); n.lane=pickLane('audio',n.start,n.start+n.dur); reg(n); audios.push(n); commit(); select({type:'audio',id:n.id},'avol');
   }
 }
 function moveClip(d){
@@ -1049,11 +1567,11 @@ function setHold(c,n){
 function del(){
   const it=selItem(); if(!it) return;
   const type=sel.type;
-  const L=type==='clip'?clips:type==='text'?texts:type==='ov'?overlays:audios;
+  const L=type==='clip'?clips:type==='text'?texts:type==='ov'?overlays:type==='fl'?fls:audios;
   const i=L.indexOf(it); L.splice(i,1);
   if(it.el&&it.el.pause) it.el.pause();
   commit();
-  const msg=type==='clip'?'ক্লিপ':type==='text'?'টেক্সট':type==='ov'?'ওভারলে':'অডিও';
+  const msg=type==='clip'?'ক্লিপ':type==='text'?'টেক্সট':type==='ov'?'ওভারলে':type==='fl'?'ফিল্টার লেয়ার':'অডিও';
   sel=null; tool=null; layout(); t=clamp(t,0,total);
   refreshAll(); setT(t);
   toast(msg+' মুছে ফেলা হয়েছে',{label:'ফিরিয়ে আনুন',fn:undo});
@@ -1068,6 +1586,9 @@ function act(k){
   switch(k){
     case 'back': sel=null; tool=null; renderChrome(); renderTimeline(); render(); return;
     case 'edit': pickClipTool(null); return;
+    case 'addfl': addFL(); return;
+    case 'lup': moveLane(true); return;
+    case 'ldown': moveLane(false); return;
     case 'audio': if(needClips()) $('#fileA').click(); return;
     case 'text': addText(); return;
     case 'overlay': if(needClips()) $('#fileO').click(); return;
@@ -1091,6 +1612,20 @@ function act(k){
 
 /* ---------- file inputs ---------- */
 $('#fileV').addEventListener('change',async e=>{ const f=[...e.target.files]; e.target.value=''; e.target.accept='video/*,image/*'; if(f.length) await addFiles(f); });
+$('#hnav').addEventListener('click',e=>{ const b=e.target.closest('[data-tab]'); if(!b) return; homeTab=b.dataset.tab; applyTab(); if(homeTab==='me') renderMe(); });
+const pickTool=e=>{ const g=e.target.closest('[data-go]'); if(g){ homeTab=g.dataset.go; applyTab(); return; } const b=e.target.closest('[data-tk]'); if(!b) return; pending=b.dataset.tk; $('#fileV').accept=b.dataset.img?'image/*':'video/*,image/*'; $('#fileV').click(); };
+$('#hTools').addEventListener('click',pickTool);
+$('#quick').addEventListener('click',pickTool);
+function renderMe(){
+  renderFontList();
+  const mk=(a,v,l,on)=>'<button class="chip" type="button" data-ex="'+a+'" data-v="'+v+'" aria-pressed="'+on+'">'+l+'</button>';
+  $('#meRes').innerHTML=[480,720,1080].map(v=>mk('res',v,v+'p',exp.res===v)).join('');
+  $('#meFps').innerHTML=[24,30,60].map(v=>mk('fps',v,v+' fps',exp.fps===v)).join('');
+}
+$('#fileF').addEventListener('change',async e=>{ const f=e.target.files[0]; e.target.value=''; if(f) await addFontFromFile(f); });
+$('#hMe').addEventListener('click',e=>{
+  const fa=e.target.closest('[data-a]');
+  if(fa){ const a=fa.dataset.a; if(a==='fontfile') $('#fileF').click(); else if(a==='fontgoogle'){ const g=$('#meGf'); g.hidden=!g.hidden; } else if(a==='gfgo2') addGoogleFont($('#gfName2').value); return; } const b=e.target.closest('[data-ex]'); if(!b) return; exp[b.dataset.ex]=+b.dataset.v; renderMe(); updateRes(); });
 $('#cardVideo').addEventListener('click',()=>{ $('#fileV').accept='video/*,image/*'; $('#fileV').click(); });
 $('#cardPhoto').addEventListener('click',()=>{ $('#fileV').accept='image/*'; $('#fileV').click(); });
 $('#fileA').addEventListener('change',async e=>{
@@ -1099,7 +1634,7 @@ $('#fileA').addEventListener('change',async e=>{
   const ok=await onceMeta(el);
   if(!ok||!isFinite(el.duration)){ toast('"'+f.name+'" ফাইলটি খোলা যায়নি'); return; }
   const a={id:uid(),name:f.name,url,el,full:el.duration,dur:el.duration,start:t>=total-0.3?0:t,vol:1,gain:null};
-  a.gain=wire(el); reg(a); audios.push(a); commit();
+  a.gain=wire(el); a.lane=pickLane('audio',a.start,a.start+a.dur); reg(a); audios.push(a); commit();
   select({type:'audio',id:a.id},'avol'); toast('অডিও যোগ হয়েছে');
 });
 $('#fileO').addEventListener('change',async e=>{
@@ -1109,9 +1644,11 @@ $('#fileO').addEventListener('change',async e=>{
     const m=await loadMedia(f);
     if(!m){ toast('"'+f.name+'" ফাইলটি খোলা যায়নি'); continue; }
     const s=Math.min(t,Math.max(total-0.5,0));
-    const o={id:uid(),kind:m.kind==='image'?'img':'vid',name:f.name,url:m.url,el:m.el,dur:m.dur,start:s,end:Math.min(s+(m.kind==='image'?3:m.dur),total),x:0.5,y:0.5,w:0.45,rot:0,opacity:1,animIn:0,animOut:0,animDur:0.5,volume:1,flip:false,gain:null};
+    const isG=m.kind==='image'&&(f.type==='image/gif'||/\.gif$/i.test(f.name));
+    const o={id:uid(),kind:m.kind==='image'?(isG?'gif':'img'):'vid',name:f.name,url:m.url,el:m.el,dur:m.dur,start:s,end:Math.min(s+(m.kind==='image'?3:m.dur),total),x:0.5,y:0.5,w:0.45,rot:0,opacity:1,animIn:0,animOut:0,animDur:0.5,volume:1,flip:false,gain:null};
+    if(o.kind==='gif') o.gif=newGif(o.url);
     if(o.kind==='vid'){ o.gain=wire(o.el); setVol(o,1); }
-    reg(o); overlays.push(o); n++;
+    o.lane=pickLane('ov',o.start,o.end); reg(o); overlays.push(o); n++;
     commit(); select({type:'ov',id:o.id},'otrans');
   }
   if(n) toast('ওভারলে যোগ হয়েছে');
@@ -1146,6 +1683,8 @@ panel.addEventListener('input',e=>{
     case 'hold': setHold(it,n); out('hold',it.hold.toFixed(1)+'s'); render(true); break;
     case 'in': it.in=clamp(n,0,it.out-0.2); e.target.value=it.in; layout(); renderTimeline(); out('in',it.in.toFixed(2)+'s'); out('len',it.len.toFixed(1)+'s'); setT(it.start); break;
     case 'out': it.out=clamp(n,it.in+0.2,it.dur); e.target.value=it.out; layout(); renderTimeline(); out('out',it.out.toFixed(2)+'s'); out('len',it.len.toFixed(1)+'s'); setT(it.start+it.len-0.05); break;
+    case 'fls': it.strength=n; out('fls',n+'%'); break;
+    case 'tdur': it.transDur=n; out('tdur',n.toFixed(1)+'s'); break;
     case 'adur': it.animDur=n; out('adur',n.toFixed(1)+'s'); break;
     case 'scale': it.scale=n/100; out('scale',Math.round(n)+'%'); render(true); break;
     case 'rot': it.rot=n; out('rot',n+'°'); render(true); break;
@@ -1173,20 +1712,25 @@ panel.addEventListener('change',()=>{ commit(); });
 panel.addEventListener('click',e=>{
   const b=e.target.closest('[data-a]'); if(!b) return;
   const a=b.dataset.a, v=b.dataset.v, it=selItem();
+  if(a==='fontfile'){ $('#fileF').click(); return; }
+  if(a==='fontgoogle'){ gfOpen=!gfOpen; renderChrome(); const i=$('#gfName'); if(i) i.focus(); return; }
+  if(a==='gfgo'){ addGoogleFont($('#gfName')&&$('#gfName').value); return; }
   if(a==='pclose'){ tool=null; renderChrome(); renderToolbar(); return; }
   if(a==='ratio'){ ratio=v; applyRatio(); commit(); renderChrome(); return; }
   if(a==='bg'){ bg=v==='blur'?{mode:'blur',color:bg.color}:{mode:'color',color:v}; commit(); render(true); renderChrome(); return; }
+  if(a==='addgif'){ if(needClips()) $('#fileO').click(); return; }
+  if(a==='addov2'){ if(needClips()) $('#fileO').click(); return; }
   if(a==='stk'){
     if(!needClips()) return;
     const s=Math.min(t,Math.max(total-0.5,0));
     const o={id:uid(),kind:'emoji',emoji:v,name:v,start:s,end:Math.min(s+3,total),x:0.5,y:0.45,w:0.3,rot:0,opacity:1,animIn:0,animOut:0,animDur:0.5,volume:1,flip:false,dur:3};
-    overlays.push(o); commit(); select({type:'ov',id:o.id},'otrans'); setT(s+0.01); return;
+    o.lane=pickLane('ov',o.start,o.end); overlays.push(o); commit(); select({type:'ov',id:o.id},'otrans'); setT(s+0.01); return;
   }
   if(a==='capgo'){
     const lines=($('#capIn').value||'').split('\n').map(s=>s.trim()).filter(Boolean);
     if(!lines.length){ toast('আগে ক্যাপশনের লাইন লিখুন'); return; }
     const span=total/lines.length;
-    lines.forEach((txt,i)=>texts.push({id:uid(),text:txt,start:i*span,end:(i+1)*span,x:0.5,y:0.86,size:6,color:'#ffffff',style:'box',font:0,rot:0,animIn:1,animOut:0,animDur:0.3}));
+    lines.forEach((txt,i)=>pushText({id:uid(),text:txt,start:i*span,end:(i+1)*span,x:0.5,y:0.86,size:6,color:'#ffffff',style:'box',font:0,rot:0,animIn:1,animOut:0,animDur:0.3}));
     commit(); tool=null; refreshAll(); setT(0); ensureFonts();
     toast(lines.length+'টি ক্যাপশন বসেছে। টাইমলাইনের লেখায় চাপলে বদলানো যাবে।'); return;
   }
@@ -1194,6 +1738,9 @@ panel.addEventListener('click',e=>{
   switch(a){
     case 'speed': setSpeed(it,+v); commit(); renderChrome(); break;
     case 'filter': it.filter=+v; commit(); renderChrome(); renderTimeline(); render(true); break;
+    case 'trans': it.trans=+v; commit(); renderChrome(); render(true); break;
+    case 'flf': it.filter=+v; commit(); renderChrome(); renderTimeline(); render(true); break;
+    case 'flx': it.effect=+v; commit(); renderChrome(); renderTimeline(); render(true); break;
     case 'fx': it.effect=+v; commit(); renderChrome(); renderTimeline(); render(true); break;
     case 'aIn': it.animIn=+v; commit(); renderChrome(); break;
     case 'aOut': it.animOut=+v; commit(); renderChrome(); break;
@@ -1228,12 +1775,34 @@ $('#zoomOut').addEventListener('click',()=>{ pps=clamp(pps/1.4,12,300); renderTi
 tl.addEventListener('pointerdown',()=>{ if(playing&&!exporting) stopPlay(); });
 let seekPending=false;
 tl.addEventListener('scroll',()=>{
+  lcol.style.transform='translateY('+(-tl.scrollTop)+'px)';
   if(playing||exporting) return;
   if(Math.abs(tl.scrollLeft-Math.round(t*pps))<2) return;
   if(seekPending) return;
   seekPending=true;
   requestAnimationFrame(()=>{ seekPending=false; setT(tl.scrollLeft/pps,{noScroll:true}); });
 });
+function addLane(k){
+  if(lanes[k]>=8){ toast('আর লেয়ার যোগ করা যাবে না'); return; }
+  lanes[k]++; commit(); renderTimeline(); toast('লেয়ার যোগ হয়েছে');
+}
+function addFL(){
+  if(!needClips()) return;
+  const s0=Math.min(t,Math.max(total-0.5,0)), e0=Math.min(s0+3,total);
+  const f={id:uid(),start:s0,end:e0,filter:1,effect:0,strength:100,lane:0};
+  f.lane=pickLane('fl',s0,e0); fls.push(f); commit();
+  select({type:'fl',id:f.id},'flfilter'); setT(s0+0.01);
+}
+function moveLane(screenUp){
+  const it=selItem(); if(!it) return;
+  const k=sel.type; if(!lanes[k]&&lanes[k]!==0) return;
+  const upIsPlus=(k==='ov'||k==='fl');
+  const d=screenUp?(upIsPlus?1:-1):(upIsPlus?-1:1);
+  const L=(it.lane||0)+d;
+  if(L<0){ toast('এটি শেষ লেয়ারে আছে'); return; }
+  if(L>=lanes[k]){ if(lanes[k]>=8){ toast('আর লেয়ার যোগ করা যাবে না'); return; } lanes[k]=L+1; }
+  it.lane=L; commit(); renderTimeline(); render(true);
+}
 function timelineAct(a){
   switch(a){
     case 'addv': $('#fileV').accept='video/*,image/*'; $('#fileV').click(); break;
@@ -1241,6 +1810,8 @@ function timelineAct(a){
     case 'addtext': addText(); break;
     case 'addov': if(needClips()) $('#fileO').click(); break;
     case 'cover': saveCover(); break;
+    case 'addfl': addFL(); break;
+    default: if(a.startsWith('addlane-')) addLane(a.slice(8));
   }
 }
 tlIn.addEventListener('click',e=>{
@@ -1252,7 +1823,7 @@ tlIn.addEventListener('click',e=>{
   if(sel&&sel.type===type&&sel.id===id){ sel=null; tool=null; renderChrome(); renderTimeline(); render(); return; }
   select({type,id});
   const it=selItem();
-  if(it&&(type==='text'||type==='ov')&&(t<it.start||t>it.end)) setT(it.start+0.01);
+  if(it&&(type==='text'||type==='ov'||type==='fl')&&(t<it.start||t>it.end)) setT(it.start+0.01);
 });
 lcol.addEventListener('click',e=>{
   const m=e.target.closest('#btnMute');
@@ -1303,17 +1874,17 @@ function saveCover(){
     catch(err){ if(!(err&&err.code==='declined')) toast('সেভ করা যায়নি। আবার চেষ্টা করুন।'); }
   },'image/jpeg',0.92);
 }
-function resetProject(){
-  stopPlay();
+function resetProject(keep){
+  stopPlay(); curPid=null; curName=''; urlBid.clear(); bidUrl.clear(); savedBids.clear();
   [...clips,...overlays,...audios].forEach(i=>{ if(i.el&&i.el.pause) i.el.pause(); });
-  clips=[]; texts=[]; overlays=[]; audios=[]; muteMain=false; bg={mode:'color',color:'#000000'};
+  clips=[]; texts=[]; overlays=[]; audios=[]; fls=[]; lanes={ov:1,audio:1,text:1,fl:0}; muteMain=false; bg={mode:'color',color:'#000000'};
   sel=null; tool=null; t=0; pool.textContent=''; RT.clear();
   ratio='9:16'; applyRatio(); hist=[]; hi=-1; commit(); refreshAll();
 }
 function showSheet(which){
   $('#sheetBack').hidden=false;
-  for(const k of ['Set','Prog','Done','Err','Conf']) $('#sh'+k).hidden=(k!==which);
-  $('#shTitle').textContent={Set:'এক্সপোর্ট সেটিং',Prog:'এক্সপোর্ট হচ্ছে',Done:'ভিডিও তৈরি হয়েছে',Err:'এক্সপোর্ট হয়নি',Conf:'প্রজেক্ট বন্ধ'}[which];
+  for(const k of ['Set','Prog','Done','Err','Conf','Proj']) $('#sh'+k).hidden=(k!==which);
+  $('#shTitle').textContent={Set:'এক্সপোর্ট সেটিং',Prog:'এক্সপোর্ট হচ্ছে',Done:'ভিডিও তৈরি হয়েছে',Err:'এক্সপোর্ট হয়নি',Conf:'প্রজেক্ট বন্ধ',Proj:'প্রজেক্ট'}[which];
 }
 function closeSheet(){
   $('#sheetBack').hidden=true;
@@ -1404,8 +1975,30 @@ $('#shCancel').addEventListener('click',()=>{
 });
 $('#shClose').addEventListener('click',closeSheet);
 $('#shErrClose').addEventListener('click',closeSheet);
-$('#btnClose').addEventListener('click',()=>{ stopPlay(); showSheet('Conf'); });
+$('#btnClose').addEventListener('click',()=>{ closeToHome(); });
 $('#shConfNo').addEventListener('click',closeSheet);
+const projClick=e=>{
+  const m=e.target.closest('[data-more]'); if(m){ e.stopPropagation(); openMenu(m.dataset.more); return; }
+  const g=e.target.closest('[data-tab-go]'); if(g){ homeTab=g.dataset.tabGo; applyTab(); return; }
+  const o=e.target.closest('[data-open]'); if(o) openProject(o.dataset.open);
+};
+$('#projList').addEventListener('click',projClick);
+$('#projList2').addEventListener('click',projClick);
+$('#pClose').addEventListener('click',closeSheet);
+$('#pSave').addEventListener('click',async()=>{
+  const rec=await dbGet('projects',menuPid); if(!rec) return;
+  rec.name=($('#pName').value.trim()||rec.name).slice(0,40);
+  const d=await idb(), t=d.transaction('projects','readwrite'); t.objectStore('projects').put(rec); await dbDone(t);
+  closeSheet(); refreshProjects();
+});
+$('#pDup').addEventListener('click',async()=>{ await dupProject(menuPid); closeSheet(); refreshProjects(); toast('ডুপ্লিকেট হয়েছে'); });
+$('#pDel').addEventListener('click',async()=>{
+  if(!delArmed){ delArmed=true; $('#pDel').textContent='আবার চাপুন, মুছে যাবে'; return; }
+  await delProject(menuPid); closeSheet(); refreshProjects(); toast('প্রজেক্ট মুছে গেছে');
+});
+document.addEventListener('visibilitychange',()=>{ if(document.hidden) saveProject(); });
+try{ if(navigator.storage&&navigator.storage.persist) navigator.storage.persist(); }catch(e){}
+refreshProjects(); loadSavedFonts();
 $('#shConfYes').addEventListener('click',()=>{ closeSheet(); resetProject(); });
 $('#shSave').addEventListener('click',async()=>{
   if(!dl||!exportBlob) return;
@@ -1425,6 +2018,115 @@ try{
 }catch(e){}
 updatePlayBtn();
 commit();
+
+/* ---------- Google sign-in (Firebase Auth) ---------- */
+const FB_VER='10.12.2';
+let fbAuth=null, fbMods=null, authUser=null;
+const fbCfg=()=>{ const c=window.CG_CONFIG&&window.CG_CONFIG.firebase; return c&&c.apiKey?c:null; };
+async function fbInit(){
+  if(fbAuth) return fbAuth;
+  const cfg=fbCfg(); if(!cfg) return null;
+  const base='https://www.gstatic.com/firebasejs/'+FB_VER+'/';
+  const app=await import(base+'firebase-app.js'), au=await import(base+'firebase-auth.js');
+  fbMods=au; fbAuth=au.getAuth(app.initializeApp(cfg));
+  au.onAuthStateChanged(fbAuth,u=>{ authUser=u; renderAcct(); });
+  return fbAuth;
+}
+function renderAcct(){
+  const u=authUser, av=$('#avatar');
+  if(u){
+    av.innerHTML=u.photoURL?'<img alt="" referrerpolicy="no-referrer" src="'+esc(u.photoURL)+'">':'<b>'+esc((u.displayName||u.email||'?')[0].toUpperCase())+'</b>';
+    $('#acName').textContent=u.displayName||u.email; $('#acSub').textContent=u.email||'';
+  }else{
+    av.innerHTML='<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>';
+    $('#acName').textContent='সাইন ইন করুন';
+    $('#acSub').textContent=fbCfg()?'Google দিয়ে সাইন ইন করুন':'সাইন ইন শীঘ্রই চালু হবে';
+  }
+  $('#acOut').hidden=!u;
+}
+async function signIn(){
+  if(authUser) return;
+  if(!fbCfg()){ toast('সাইন ইন এখনও চালু করা হয়নি'); return; }
+  if(window.Capacitor){ toast('অ্যাপের ভেতরে Google সাইন ইন চলে না। ব্রাউজারে খুলে সাইন ইন করুন'); return; }
+  try{
+    const a=await fbInit(); if(!a) return;
+    await fbMods.signInWithPopup(a,new fbMods.GoogleAuthProvider());
+  }catch(e){
+    const c=String(e&&e.code||'');
+    if(c.includes('popup-closed')||c.includes('cancelled')) return;
+    toast('সাইন ইন হয়নি। আবার চেষ্টা করুন');
+  }
+}
+$('#acct').addEventListener('click',signIn);
+$('#acOut').addEventListener('click',async()=>{ try{ await fbMods.signOut(fbAuth); toast('সাইন আউট হয়েছে'); }catch(e){} });
+renderAcct();
+if(fbCfg()) fbInit().catch(()=>{});
+const EN={"ক্লিপঘর":"Clipghor","স্টিকার ও GIF":"Stickers & GIF","GIF যোগ করুন":"Add GIF","ছবি/স্টিকার যোগ":"Add image/sticker","ফিল্টার লেয়ার":"Filter layer","ফিল্টার লেয়ার যোগ করুন":"Add filter layer","লেয়ার ↑":"Layer ↑","লেয়ার ↓":"Layer ↓","লেয়ার যোগ করুন":"Add layer","লেয়ার যোগ হয়েছে":"Layer added","লেয়ার":"Layer","মাত্রা":"Strength","ফিল্টারের মাত্রা":"Filter strength","এটি শেষ লেয়ারে আছে":"Already on the last layer","আর লেয়ার যোগ করা যাবে না":"Can't add more layers","সব দেখুন":"See all","সাইন ইন করুন":"Sign in","Google দিয়ে সাইন ইন করুন":"Sign in with Google","সাইন ইন শীঘ্রই চালু হবে":"Sign-in is coming soon","সাইন আউট":"Sign out","সাইন আউট হয়েছে":"Signed out","সব কিছু ফ্রি":"Everything is free","সাইন ইন ঐচ্ছিক":"Signing in is optional","পেমেন্ট বা সাবস্ক্রিপশন কিছুই লাগে না":"No payment or subscription needed","সাইন ইন এখনও চালু করা হয়নি":"Sign-in isn't set up yet","সাইন ইন হয়নি":"Sign-in failed","অ্যাপের ভেতরে Google সাইন ইন চলে না":"Google sign-in doesn't work inside the app","ব্রাউজারে খুলে সাইন ইন করুন":"Open in a browser to sign in","FTTHBD-এর ভিডিও এডিটর অ্যাপ":"FTTHBD's video editor app","ভার্সন ৫":"Version 5","ফোনের ব্রাউজারে চলে":"runs in your phone's browser","নতুন ভিডিও":"New video","ছবি থেকে ভিডিও":"Photo to video","ক্যাপশন":"Captions","ফিল্টার":"Filters","ট্রানজিশন":"Transitions","এফেক্ট":"Effects","ফটো এডিটর":"Photo editor","কভার মেকার":"Cover maker","স্টিকার":"Stickers","সব টুলস":"All tools","প্রজেক্ট":"Projects","এডিট":"Edit","টুলস":"Tools","সাহায্য":"Help","আমি":"Me","মূল মেনু":"Main menu","এডিটিং টুল":"Editing tools","প্রিভিউ":"Preview","অডিও":"Audio","টেক্সট":"Text","ওভারলে":"Overlay","অ্যাডজাস্ট":"Adjust","অ্যাসপেক্ট":"Aspect","ব্যাকগ্রাউন্ড":"Background","অ্যাসপেক্ট রেশিও":"Aspect ratio","স্প্লিট":"Split","ভলিউম":"Volume","অ্যানিমেশন":"Animation","ডিলিট":"Delete","স্পিড":"Speed","সময়":"Time","ট্রিম":"Trim","ক্রপ":"Crop","ডুপ্লিকেট":"Duplicate","রিপ্লেস":"Replace","ফ্রিজ":"Freeze","অপাসিটি":"Opacity","ফিল":"Fill","ফিট":"Fit","আগে":"Prev","পরে":"Next","স্টাইল":"Style","আকার":"Size","আকার ও ঘোরানো":"Size & rotate","বাংলা টেক্সট":"Bengali text","এখানে লিখুন":"Type here","টেক্সট যোগ করুন":"Add text","অডিও যোগ করুন":"Add audio","ছবি/ভিডিও ওভারলে":"Photo/video overlay","ওভারলে যোগ করুন":"Add overlay","কভার সেভ করুন":"Save cover","কভার":"Cover","ক্লিপের নিজের শব্দ বন্ধ":"Clip's own sound off","ক্লিপের শব্দ চালু":"Clip sound on","ক্লিপের শব্দ বন্ধ":"Clip sound off","মিউট":"Mute","আনডু":"Undo","রিডু":"Redo","চালান":"Play","থামান":"Pause","টাইমলাইন ছোট করুন":"Zoom timeline out","টাইমলাইন বড় করুন":"Zoom timeline in","প্যানেল বন্ধ করুন":"Close panel","প্রজেক্ট বন্ধ করুন":"Close project","এক্সপোর্ট":"Export","এক্সপোর্ট সেটিং":"Export settings","এক্সপোর্ট হচ্ছে":"Exporting","এক্সপোর্ট হয়নি":"Export failed","ভিডিও তৈরি হয়েছে":"Video ready","এক্সপোর্ট শুরু করুন":"Start export","বন্ধ করুন":"Close","বাতিল করুন":"Cancel","ঠিক আছে":"OK","ফাইল সেভ করুন":"Save file","ফাইল সেভ হয়েছে":"File saved","রেজোলিউশন":"Resolution","ফ্রেমরেট":"Frame rate","ফ্রেম রেট":"Frame rate","মান":"Quality","সাইজ":"Size","বেশি":"High","মাঝারি":"Medium","কম":"Low","আনুমানিক সাইজ:":"Estimated size:","এক্সপোর্টে ভিডিওর সমান সময় লাগে":"Export takes about as long as the video","শেষ না হওয়া পর্যন্ত এই স্ক্রিনেই থাকুন, অন্য অ্যাপে যাবেন না":"Stay on this screen until it finishes. Don't switch apps","এক্সপোর্ট চলার সময় স্ক্রিন খোলা রাখুন, অন্য অ্যাপে যাবেন না":"Keep the screen on during export and don't switch apps","প্রজেক্ট বন্ধ":"Close project","প্রজেক্ট বন্ধ করলে এই এডিটের সব কাজ মুছে যাবে":"Closing the project erases all work in this edit","বন্ধ করবেন":"Close it","হ্যাঁ, বন্ধ করুন":"Yes, close","না, ফিরে যান":"No, go back","ফিরে যান":"Go back","নাম সেভ করুন":"Save name","প্রজেক্টের নাম":"Project name","আবার চাপুন, মুছে যাবে":"Tap again to delete","আরও":"More","কপি":"copy","এখনও কোনো প্রজেক্ট নেই":"No projects yet","\"নতুন ভিডিও\" চেপে শুরু করুন":"Tap \"New video\" to start","কাজ নিজে নিজে সেভ হবে":"Your work saves automatically","এই ব্রাউজারে প্রজেক্ট সেভ করা যাচ্ছে না":"Projects can't be saved in this browser","প্রজেক্ট সেভ করা যাচ্ছে না (জায়গা কম বা ব্রাউজার অনুমতি দিচ্ছে না)":"Can't save the project (not enough space or the browser won't allow it)","প্রজেক্ট খুলছে…":"Opening project…","প্রজেক্ট খুলতে সমস্যা হয়েছে":"Couldn't open the project","প্রজেক্টটি পাওয়া যায়নি":"Project not found","প্রজেক্ট মুছে গেছে":"Project deleted","ডুপ্লিকেট হয়েছে":"Duplicated","লোড হচ্ছে…":"Loading…","মুছে ফেলা হয়েছে":"Deleted","ফিরিয়ে আনুন":"Undo","টি ক্লিপ যোগ হয়েছে":" clips added","টি ক্যাপশন বসেছে":" captions added","টাইমলাইনের লেখায় চাপলে বদলানো যাবে":"Tap a caption on the timeline to edit it","আগে ভিডিও বা ছবি যোগ করুন":"Add a video or photo first","আরও ভিডিও বা ছবি যোগ করুন":"Add more videos or photos","আগে ক্যাপশনের লাইন লিখুন":"Write the caption lines first","ফাইলটি খোলা যায়নি":"couldn't be opened","MP4/MOV (H.264) বা JPG/PNG চেষ্টা করুন":"Try MP4/MOV (H.264) or JPG/PNG","ক্লিপ দুই ভাগ হয়েছে":"Clip split in two","ক্লিপ বদলানো হয়েছে":"Clip replaced","প্লেহেডটি ক্লিপের মাঝখানে নিন":"Move the playhead to the middle of a clip","২ সেকেন্ডের ফ্রিজ ফ্রেম যোগ হয়েছে":"2-second freeze frame added","শুধু ভিডিও ক্লিপে ফ্রিজ করা যায়":"Freeze works on video clips only","এটি সবার আগেই আছে":"It's already first","এটি সবার শেষেই আছে":"It's already last","অডিও যোগ হয়েছে":"Audio added","ওভারলে যোগ হয়েছে":"Overlay added","ফিট: পুরো ভিডিও দেখা যাবে":"Fit: whole video visible","ফিল: পুরো ফ্রেম ভরবে":"Fill: covers the whole frame","কভার সেভ হয়েছে":"Cover saved","কভার তৈরি হয়নি":"Couldn't create the cover","সেভ করা যায়নি":"Couldn't save","আবার চেষ্টা করুন":"Try again","একটু পরে আবার চেষ্টা করুন":"Try again in a moment","এই ভিউতে সরাসরি সেভ করা যাচ্ছে না":"Direct saving isn't available in this view","প্রিভিউ ভিডিওতে চেপে ধরে সেভ করে দেখুন":"Try pressing and holding the preview video to save it","ভিডিও সেভ বা শেয়ার করুন":"Save or share the video","ভিডিও তৈরি হয়নি":"The video wasn't created","রেকর্ডার চালু করা যায়নি":"Couldn't start the recorder","অন্য ব্রাউজারে চেষ্টা করুন":"Try another browser","এই ব্রাউজারে এক্সপোর্ট চলে না":"Export doesn't work in this browser","Chrome বা Safari-তে খুলুন":"Open it in Chrome or Safari","এই ব্রাউজারে ফিল্টার কাজ করে না":"Filters don't work in this browser","Chrome বা Firefox-এ খুলুন":"Open it in Chrome or Firefox","এই ব্রাউজারে উজ্জ্বলতা, কনট্রাস্ট, স্যাচুরেশন ও ঝাপসা কাজ করে না":"Brightness, contrast, saturation and blur don't work in this browser","১০৮০p ফোনে ধীর হতে পারে":"1080p can be slow on a phone","১০৮০":"1080","কোনোটি নয়":"None","শুরুতে":"In","শেষে":"Out","শুরু":"Start","শেষ":"End","এখানে":"Here","প্লেহেডকে ঠিক জায়গায় রেখে \"এখানে\" চাপুন":"Put the playhead in the right spot and tap \"Here\"","টাইমলাইনে বসান":"Place on timeline","প্রতি লাইনে একটি ক্যাপশন লিখুন":"Write one caption per line","লাইনগুলো পুরো ভিডিওতে সমান সময় ভাগ করে বসবে":"The lines are spread evenly across the whole video","পরে টাইমলাইন থেকে প্রতিটির সময় ও স্টাইল বদলাতে পারবেন":"You can change each one's timing and style on the timeline later","কণ্ঠস্বর থেকে অটো ক্যাপশন ব্রাউজারে সম্ভব নয়":"Automatic captions from voice aren't possible in a browser","ট্রানজিশন ক্লিপের শুরুতে চলে":"The transition plays at the start of the clip","প্রিভিউতে আঙুল দিয়ে টেনে জায়গা বদলান":"Drag in the preview to move it","প্রিভিউতে আঙুল দিয়ে টেনে লেখার জায়গা বদলান":"Drag the text in the preview to move it","ভিডিও ফ্রেমে পুরো না ভরলে বাকি জায়গায় এটি দেখা যাবে":"This shows in the leftover space when the video doesn't fill the frame","ঝাপসা ব্যাকগ্রাউন্ড":"Blurred background","মূল ভিডিও":"Original video","এখন ক্লিপ":"clip now","নিজের রং":"Custom color","রং":"Color","রিসেট":"Reset","আয়না (উল্টো)":"Mirror (flip)","আয়না":"Mirror","ঘোরান":"Rotate","জুম":"Zoom","ডানে-বামে":"Left-right","উপরে-নিচে":"Up-down","ক্রপ ও ট্রান্সফর্ম":"Crop & transform","উজ্জ্বলতা":"Brightness","কনট্রাস্ট":"Contrast","স্যাচুরেশন":"Saturation","তাপমাত্রা":"Temperature","ভিগনেট":"Vignette","ঝাপসা":"Blur","সাধারণ":"Plain","আউটলাইন":"Outline","ব্যাকগ্রাউন্ড বক্স":"Box","ছায়া":"Shadow","বক্স":"Box","গোলগাল":"Rounded","ছাপার অক্ষর":"Print","বইয়ের":"Book","হাতের লেখা":"Handwriting","সাজানো":"Fancy","ফন্ট":"Font","ফন্ট ফাইল":"Font file","ফন্টের নাম, যেমন":"Font name, e.g.","ফন্টের নাম":"Font name","Google ফন্টের নাম":"Google font name","যোগ করুন":"Add","আমার ফন্ট":"My fonts","নিজের পছন্দের যেকোনো ফন্ট যোগ করুন":"Add any font you like","যোগ করলে টেক্সটের স্টাইলে ফন্ট তালিকায় চলে আসবে":"It will appear in the text style font list","এখনও কোনো ফন্ট যোগ করা হয়নি":"No fonts added yet","ফন্ট যোগ হয়েছে:":"Font added:","ফন্টের নাম লিখুন":"Enter a font name","এই ফন্ট আগেই আছে":"This font is already added","ফন্ট আনছে…":"Fetching font…","নামে Google ফন্ট পাওয়া যায়নি, বা ইন্টারনেট নেই":"Google font not found, or no internet","ফন্টটি খোলা যায়নি":"Couldn't open the font","TTF, OTF বা WOFF ফাইল দিন":"Use a TTF, OTF or WOFF file","অ্যাকাউন্ট ছাড়াই ফ্রি":"Free, no account needed","লগইন, পেমেন্ট বা সাবস্ক্রিপশন কিছুই লাগে না":"No login, payment or subscription needed","সব ফিল্টার, এফেক্ট ও ট্রানজিশন সবসময় ফ্রি":"All filters, effects and transitions are always free","আপনার ভিডিও ফোনেই থাকে, কোথাও আপলোড হয় না":"Your videos stay on your phone and are never uploaded","এক্সপোর্টের ডিফল্ট":"Export defaults","ভাষা":"Language","ভার্সন ৪ · ফোনের ব্রাউজারে চলা বাংলা ভিডিও এডিটর":"Version 3 · a video editor that runs in your phone's browser","একটা টুল বেছে নিন, তারপর ভিডিও বা ছবি দিন":"Pick a tool, then add a video or photo","সরাসরি ওই টুল খুলে যাবে":"That tool opens right away","প্রথম ভিডিও বানাতে":"Making your first video","\"এডিট\" ট্যাবে \"নতুন ভিডিও\" চাপুন, ভিডিও বা ছবি বেছে নিন":"In the \"Edit\" tab, tap \"New video\" and choose videos or photos","নিচের টুলবার থেকে কাটা, টেক্সট, ফিল্টার, গান যোগ করুন":"Use the toolbar below to cut, add text, filters and music","টাইমলাইনে ক্লিপ ট্যাপ করলে ওই ক্লিপের টুল আসে":"Tap a clip on the timeline to see its tools","উপরের \"এক্সপোর্ট\" চেপে ভিডিও বানান ও সেভ করুন":"Tap \"Export\" at the top to make and save the video","টিপস":"Tips","টাইমলাইন দুই আঙুলে নয়, + আর − বাটনে ছোট-বড় হয়":"Zoom the timeline with the + and − buttons","ভুল হলে আনডু (↶) চাপুন":"Made a mistake? Tap undo (↶)","প্রজেক্ট সেভ থাকে না":"Projects aren't saved","এক্সপোর্ট না করে বন্ধ করলে কাজ হারাবে":"Closing without exporting loses your work","নরম":"Soft","উজ্জ্বল":"Bright","উষ্ণ":"Warm","ঠান্ডা":"Cool","সাদা-কালো":"Black & white","পুরনো দিন":"Old days","নাটকীয়":"Dramatic","ভিন্টেজ ফিল্ম":"Vintage film","ভাইব্রেন্ট":"Vibrant","মুডি":"Moody","গোল্ডেন আওয়ার":"Golden hour","বরফ":"Ice","ফেড":"Fade","কড়া সাদা-কালো":"Hard B&W","নরম সাদা-কালো":"Soft B&W","নিয়ন":"Neon","গোলাপি":"Pink","সবুজাভ":"Greenish","নেগেটিভ":"Negative","সেপিয়া":"Sepia","পপ":"Pop","ফ্যাকাশে":"Muted","রোদেলা":"Sunny","ঝাঁকুনি":"Shake","জুম পালস":"Zoom pulse","ফ্ল্যাশ":"Flash","গ্রেইন":"Grain","গ্লিচ":"Glitch","আরজিবি স্প্লিট":"RGB split","ভিএইচএস":"VHS","ব্লার পালস":"Blur pulse","মিরর":"Mirror","ফ্লিকার":"Flicker","ধীর জুম":"Slow zoom","দোলা":"Sway","সিনেমা বার":"Cinema bars","লাল ফ্ল্যাশ":"Red flash","স্ট্রোব":"Strobe","হার্টবিট":"Heartbeat","স্বপ্নিল আভা":"Dreamy glow","বাম থেকে":"From left","ডান থেকে":"From right","নিচ থেকে":"From bottom","ঘূর্ণি":"Spin","বাউন্স":"Bounce","উপর থেকে":"From top","জুম আউট":"Zoom out","সুইং":"Swing","ফ্লিপ":"Flip","জুম ইন":"Zoom in","কালো ফেড":"Fade from black","সাদা ফ্ল্যাশ":"White flash","বামে স্লাইড":"Slide left","ডানে স্লাইড":"Slide right","নিচ থেকে স্লাইড":"Slide up","ওয়াইপ →":"Wipe →","ওয়াইপ ←":"Wipe ←","ভাঁজ":"Fold","ওয়াইপ":"Wipe","রিলস/শর্টস":"Reels/Shorts","ইউটিউব":"YouTube","স্কোয়ার":"Square","ফিড":"Feed","পোর্ট্রেট":"Portrait","ক্লাসিক":"Classic","সিনেমা":"Cinema","ক্লিপ":"Clip"};
+
+/* ---------- language (Bengali / English) ---------- */
+const BN_RE=/[ঀ-৿]/;
+const escRe=x=>x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+const EN_RE=new RegExp('(?<![\\u0980-\\u09FF])(?:'+Object.keys(EN).sort((a,b)=>b.length-a.length).map(escRe).join('|')+')(?![\\u0980-\\u09FF])','g');
+let lang='bn';
+const ORIG=new WeakMap(), ORIGA=new WeakMap();
+function trStr(s){
+  if(!BN_RE.test(s)) return s;
+  return s.split('।').map(p=>p.replace(EN_RE,m=>EN[m])).join('. ').replace(/\.\s*$/,'.').replace(/\s+\./g,'.');
+}
+const TR_ATTRS=['aria-label','placeholder','title','alt'];
+function trTree(root){
+  if(lang!=='en') return;
+  if(root.nodeType===3){ trText(root); return; }
+  if(root.nodeType!==1) return;
+  if(root.closest&&root.closest('[data-notr]')) return;
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT|NodeFilter.SHOW_ELEMENT);
+  let n=root;
+  do{
+    if(n.nodeType===3) trText(n); else trAttrs(n);
+  }while((n=w.nextNode()));
+}
+function trText(n){
+  const p=n.parentNode; if(p&&(p.nodeName==='SCRIPT'||p.nodeName==='STYLE'||p.nodeName==='TEXTAREA')) return;
+  if(p&&p.closest&&p.closest('[data-notr]')) return;
+  const v=n.nodeValue; if(!BN_RE.test(v)) return;
+  const o=ORIG.has(n)&&ORIG.get(n).t===v?ORIG.get(n).o:v;
+  const t=trStr(v); if(t===v) return;
+  ORIG.set(n,{o,t}); n.nodeValue=t;
+}
+function trAttrs(el){
+  for(const a of TR_ATTRS){
+    const v=el.getAttribute&&el.getAttribute(a); if(!v||!BN_RE.test(v)) continue;
+    const t=trStr(v); if(t===v) continue;
+    let m=ORIGA.get(el); if(!m){ m={}; ORIGA.set(el,m); } m[a]=v; el.setAttribute(a,t);
+  }
+}
+function untrTree(root){
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT|NodeFilter.SHOW_ELEMENT);
+  let n=root;
+  do{
+    if(n.nodeType===3){ const r=ORIG.get(n); if(r&&n.nodeValue===r.t) n.nodeValue=r.o; }
+    else{ const m=ORIGA.get(n); if(m){ for(const a in m) n.setAttribute(a,m[a]); ORIGA.delete(n); } }
+  }while((n=w.nextNode()));
+}
+const mo=new MutationObserver(list=>{
+  if(lang!=='en') return;
+  for(const m of list){
+    if(m.type==='childList') m.addedNodes.forEach(trTree);
+    else if(m.type==='characterData') trText(m.target);
+    else if(m.type==='attributes') trAttrs(m.target);
+  }
+});
+function setLang(l){
+  lang=l==='en'?'en':'bn';
+  try{ localStorage.setItem('cg-lang',lang); }catch(e){}
+  document.documentElement.lang=lang==='en'?'en':'bn';
+  if(lang==='en') trTree(document.body); else untrTree(document.body);
+  document.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lang===lang)));
+  try{ renderChrome(); renderToolbar(); renderTimeline(); refreshProjects(); }catch(e){}
+}
+mo.observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:TR_ATTRS});
+$('#hMe').addEventListener('click',e=>{ const b=e.target.closest('[data-lang]'); if(b) setLang(b.dataset.lang); });
+try{ const sv=localStorage.getItem('cg-lang'); if(sv==='en') setLang('en'); else setLang('bn'); }catch(e){ setLang('bn'); }
 refreshAll();
 applyRatio();
 if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>render(true));
