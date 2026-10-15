@@ -18,7 +18,7 @@ jobs:
       - name: Build debug APK
         run: |
           mkdir www
-          cp index.html manifest.json sw.js icon-192.png icon-512.png www/
+          cp index.html pv.js config.js manifest.json sw.js icon-192.png icon-512.png www/
           npm init -y
           npm i @capacitor/core@6 @capacitor/cli@6 @capacitor/android@6 @capacitor/filesystem@6 @capacitor/share@6
           npx cap init Clipghor com.clipghor.app --web-dir=www
