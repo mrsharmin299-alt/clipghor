@@ -27,7 +27,7 @@ jobs:
           sed -i 's#<string name="app_name">.*</string>#<string name="app_name">ক্লিপঘর</string>#' android/app/src/main/res/values/strings.xml
           res=android/app/src/main/res
           rm -f $res/mipmap-anydpi-v26/ic_launcher.xml $res/mipmap-anydpi-v26/ic_launcher_round.xml
-          for d in mdpi:48 hdpi:72 xhdpi:96 xxhdpi:144 xxxhdpi:192; do n=${d%%:*}; s=${d##*:}; for f in ic_launcher ic_launcher_round ic_launcher_foreground; do convert icon-512.png -resize ${s}x${s} $res/mipmap-$n/$f.png; done; done
+          for d in mdpi hdpi xhdpi xxhdpi xxxhdpi; do for f in ic_launcher ic_launcher_round ic_launcher_foreground; do cp icon-512.png $res/mipmap-$d/$f.png; done; done
           cd android
           chmod +x gradlew
           ./gradlew assembleDebug
