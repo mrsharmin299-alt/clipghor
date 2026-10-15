@@ -482,8 +482,8 @@ const FILTER_OK='filter' in ctx;
 const ROW={main:62};
 function layoutRows(){
   const nF=lanes.fl, nO=Math.max(lanes.ov,1), nA=Math.max(lanes.audio,1), nT=Math.max(lanes.text,1);
-  ROW.fl=28; ROW.nF=nF; ROW.ovBase=28+nF*34; ROW.nO=nO;
-  ROW.main=ROW.ovBase+nO*34; ROW.audioBase=ROW.main+62; ROW.nA=nA;
+  ROW.main=28; ROW.fl=ROW.main+62; ROW.nF=nF; ROW.ovBase=ROW.fl+nF*34; ROW.nO=nO;
+  ROW.audioBase=ROW.ovBase+nO*34; ROW.nA=nA;
   ROW.textBase=ROW.audioBase+nA*34; ROW.nT=nT; ROW.bottom=ROW.textBase+nT*34+10;
 }
 function rowTop(k,L){
