@@ -1,68 +1,323 @@
-(() => {
-const $ = id => document.getElementById(id);
-const video = $('video'), audio = $('audio');
-let videoUrl = null, audioUrl = null, trimStart = 0, trimEnd = 0;
-function say(message){ $('status').textContent = message; }
-function fmt(n){return Number.isFinite(n) ? n.toFixed(1)+' সেকেন্ড' : '—';}
-function updateText(){
-  const t=$('textInput').value;
-  $('overlay').textContent=t;
-  $('overlay').style.fontSize=$('textSize').value+'px';
-  const pos=$('textPosition').value;
-  $('overlay').style.top=pos==='top'?'8%':pos==='middle'?'45%':'';
-  $('overlay').style.bottom=pos==='bottom'?'12%':'';
-  $('textClip').textContent=t.trim() || 'বাংলা টেক্সট এখানে দেখাবে';
+"use strict";
+
+/* ক্লিপঘর — ভিডিও এডিটরের মূল কোড */
+
+const $ = (id) => document.getElementById(id);
+
+const video = $("video");
+const videoFile = $("videoFile");
+const audioFile = $("audioFile");
+const audio = $("audio");
+const placeholder = $("placeholder");
+const overlay = $("overlay");
+const status = $("status");
+
+let videoURL = "";
+let audioURL = "";
+let videoDuration = 0;
+
+function showStatus(message) {
+  if (status) status.textContent = message;
 }
-function updateTimeline(){
-  $('videoClip').textContent=video.src ? `ভিডিও • ${fmt(video.duration)} • কাট: ${fmt(trimStart)}–${fmt(trimEnd || video.duration)}` : 'ভিডিও ক্লিপ এখানে দেখাবে';
+
+function formatTime(seconds) {
+  if (!Number.isFinite(seconds)) return "00:00";
+  const s = Math.max(0, Math.floor(seconds));
+  return String(Math.floor(s / 60)).padStart(2, "0") +
+    ":" + String(s % 60).padStart(2, "0");
 }
-$('pickVideo').onclick=()=>$('videoFile').click();
-$('pickAudio').onclick=()=>$('audioFile').click();
-$('pickText').onclick=()=>$('textInput').focus();
-$('videoFile').addEventListener('change', e=>{
- const file=e.target.files && e.target.files[0]; if(!file)return;
- if(videoUrl)URL.revokeObjectURL(videoUrl);
- videoUrl=URL.createObjectURL(file); video.src=videoUrl; video.load();
- $('placeholder').hidden=true; trimStart=0; trimEnd=0;
- $('durationInfo').textContent=file.name;
- $('videoClip').textContent=file.name; say('ভিডিও যোগ হয়েছে।');
+
+function updateDuration() {
+  const start = Number($("trimStart")?.value || 0);
+  const end = Number($("trimEnd")?.value || videoDuration);
+
+  if ($("durationInfo")) {
+    $("durationInfo").textContent =
+      `সময়: ${formatTime(video.currentTime || 0)} / ${formatTime(videoDuration)}`;
+  }
+
+  if ($("videoClip")) {
+    $("videoClip").textContent =
+      videoDuration ? `ভিডিও ${formatTime(start)}–${formatTime(end)}` :
+      "ভিডিও যোগ করুন";
+  }
+}
+
+/* ভিডিও নির্বাচন */
+$("pickVideo")?.addEventListener("click", () => videoFile?.click());
+
+videoFile?.addEventListener("change", () => {
+  const file = videoFile.files?.[0];
+  if (!file) return;
+
+  if (!file.type.startsWith("video/")) {
+    showStatus("দয়া করে একটি ভিডিও ফাইল নির্বাচন করুন।");
+    return;
+  }
+
+  if (videoURL) URL.revokeObjectURL(videoURL);
+  videoURL = URL.createObjectURL(file);
+
+  video.src = videoURL;
+  video.load();
+
+  if (placeholder) placeholder.style.display = "none";
+  showStatus("ভিডিও লোড হচ্ছে...");
 });
-video.addEventListener('loadedmetadata',()=>{
- $('durationInfo').textContent=`দৈর্ঘ্য: ${fmt(video.duration)}`;
- $('trimStart').value=0; $('trimEnd').value=Number.isFinite(video.duration)?video.duration.toFixed(1):0;
- trimStart=0;trimEnd=video.duration;updateTimeline();
+
+video?.addEventListener("loadedmetadata", () => {
+  videoDuration = video.duration || 0;
+
+  if ($("trimStart")) {
+    $("trimStart").max = videoDuration;
+    $("trimStart").value = 0;
+  }
+
+  if ($("trimEnd")) {
+    $("trimEnd").max = videoDuration;
+    $("trimEnd").value = videoDuration;
+  }
+
+  video.currentTime = 0;
+  updateDuration();
+  showStatus("ভিডিও প্রস্তুত! ▶ চালান চাপুন।");
 });
-video.addEventListener('timeupdate',()=>{
- if(trimEnd>trimStart && video.currentTime>=trimEnd && !video.paused){video.pause();}
+
+video?.addEventListener("error", () => {
+  showStatus("ভিডিও চালানো যায়নি। অন্য একটি ভিডিও দিয়ে চেষ্টা করুন।");
 });
-$('play').onclick=async()=>{
- if(!video.src){say('আগে একটি ভিডিও যোগ করুন।');return;}
- if(video.currentTime < trimStart || video.currentTime >= trimEnd) video.currentTime=trimStart;
- try{await video.play();say('ভিডিও চলছে।');}catch(e){say('ভিডিও চালানো যায়নি। আবার চেষ্টা করুন।');}
-};
-$('pause').onclick=()=>video.pause();
-$('restart').onclick=()=>{if(video.src){video.currentTime=trimStart;video.pause();}};
-$('setStart').onclick=()=>{if(!video.src)return say('আগে ভিডিও যোগ করুন।');$('trimStart').value=video.currentTime;trimStart=video.currentTime;updateTimeline();say('শুরুর সময় সেট হয়েছে।');};
-$('setEnd').onclick=()=>{if(!video.src)return say('আগে ভিডিও যোগ করুন।');$('trimEnd').value=video.currentTime;trimEnd=video.currentTime;updateTimeline();say('শেষের সময় সেট হয়েছে।');};
-$('previewTrim').onclick=()=>{
- const s=Number($('trimStart').value), e=Number($('trimEnd').value);
- if(!video.src)return say('আগে ভিডিও যোগ করুন।');
- if(!Number.isFinite(s)||!Number.isFinite(e)||s<0||e<=s||e>video.duration)return say('শুরুর ও শেষের সময় ঠিকভাবে দিন।');
- trimStart=s;trimEnd=e;video.currentTime=s;updateTimeline();video.play().then(()=>say('কাটিং প্রিভিউ চলছে।')).catch(()=>say('প্লে চাপুন।'));
-};
-$('audioFile').addEventListener('change',e=>{
- const file=e.target.files && e.target.files[0];if(!file)return;
- if(audioUrl)URL.revokeObjectURL(audioUrl);
- audioUrl=URL.createObjectURL(file);audio.src=audioUrl;audio.style.display='block';audio.load();
- $('audioName').textContent=file.name;$('audioClip').textContent=file.name;say('অডিও যোগ হয়েছে।');
+
+/* প্লে, পজ ও শুরু থেকে চালানো */
+$("play")?.addEventListener("click", async () => {
+  if (!video.src) {
+    showStatus("আগে ভিডিও যোগ করুন।");
+    return;
+  }
+
+  const start = Number($("trimStart")?.value || 0);
+  const end = Number($("trimEnd")?.value || videoDuration);
+
+  if (video.currentTime < start || video.currentTime >= end) {
+    video.currentTime = start;
+  }
+
+  try {
+    await video.play();
+    showStatus("ভিডিও চলছে।");
+  } catch {
+    showStatus("ভিডিও চালু হয়নি। আবার চেষ্টা করুন।");
+  }
 });
-$('textInput').addEventListener('input',updateText);
-$('textSize').addEventListener('input',updateText);
-$('textPosition').addEventListener('change',updateText);
-function getDraft(){return {text:$('textInput').value,textSize:$('textSize').value,textPosition:$('textPosition').value,trimStart:$('trimStart').value,trimEnd:$('trimEnd').value};}
-$('saveDraft').onclick=()=>{try{localStorage.setItem('clipghor-draft',JSON.stringify(getDraft()));say('ড্রাফটের সেটিংস সেভ হয়েছে।');}catch(e){say('ড্রাফট সেভ করা যায়নি।');}};
-$('loadDraft').onclick=()=>{try{const d=JSON.parse(localStorage.getItem('clipghor-draft')||'null');if(!d)return say('কোনো ড্রাফট পাওয়া যায়নি।');$('textInput').value=d.text||'';$('textSize').value=d.textSize||25;$('textPosition').value=d.textPosition||'bottom';$('trimStart').value=d.trimStart||0;$('trimEnd').value=d.trimEnd||0;trimStart=Number($('trimStart').value);trimEnd=Number($('trimEnd').value);updateText();updateTimeline();say('ড্রাফটের সেটিংস খোলা হয়েছে। ভিডিও ও অডিও আবার নির্বাচন করুন।');}catch(e){say('ড্রাফট পড়া যায়নি।');}};
-$('exportNote').onclick=()=>say('MP4 এক্সপোর্ট ইঞ্জিন পরবর্তী ধাপে যুক্ত হবে। এখনো চূড়ান্ত ভিডিও ফাইল তৈরি করা হচ্ছে না।');
-$('newProject').onclick=()=>{if(confirm('নতুন প্রজেক্ট শুরু করবেন? বর্তমান প্রিভিউ মুছে যাবে।')){video.pause();video.removeAttribute('src');video.load();audio.pause();audio.removeAttribute('src');audio.load();$('audio').style.display='none';$('placeholder').hidden=false;$('videoFile').value='';$('audioFile').value='';$('textInput').value='';trimStart=0;trimEnd=0;updateText();updateTimeline();say('নতুন প্রজেক্ট শুরু হয়েছে।');}};
-updateText();updateTimeline();
-})();
+
+$("pause")?.addEventListener("click", () => {
+  video.pause();
+  audio.pause();
+  showStatus("ভিডিও থামানো হয়েছে।");
+});
+
+$("restart")?.addEventListener("click", () => {
+  if (!video.src) {
+    showStatus("আগে ভিডিও যোগ করুন।");
+    return;
+  }
+
+  video.pause();
+  video.currentTime = Number($("trimStart")?.value || 0);
+  showStatus("ভিডিও শুরুর অবস্থানে গেছে।");
+});
+
+video?.addEventListener("timeupdate", () => {
+  const end = Number($("trimEnd")?.value || videoDuration);
+
+  if (videoDuration && video.currentTime >= end) {
+    video.pause();
+    video.currentTime = end;
+  }
+
+  updateDuration();
+});
+
+/* অডিও নির্বাচন */
+$("pickAudio")?.addEventListener("click", () => audioFile?.click());
+
+audioFile?.addEventListener("change", () => {
+  const file = audioFile.files?.[0];
+  if (!file) return;
+
+  if (!file.type.startsWith("audio/")) {
+    showStatus("দয়া করে একটি অডিও ফাইল নির্বাচন করুন।");
+    return;
+  }
+
+  if (audioURL) URL.revokeObjectURL(audioURL);
+  audioURL = URL.createObjectURL(file);
+  audio.src = audioURL;
+  audio.load();
+
+  if ($("audioName")) {
+    $("audioName").textContent = `অডিও যোগ হয়েছে: ${file.name}`;
+  }
+
+  if ($("audioClip")) {
+    $("audioClip").textContent = `অডিও: ${file.name}`;
+  }
+
+  showStatus("অডিও যোগ হয়েছে।");
+});
+
+/* ভিডিও ও অডিও একসঙ্গে চালানো */
+video?.addEventListener("play", () => {
+  if (audio.src) {
+    audio.currentTime = video.currentTime;
+    audio.play().catch(() => {});
+  }
+});
+
+video?.addEventListener("pause", () => audio.pause());
+
+video?.addEventListener("seeking", () => {
+  if (audio.src) {
+    try {
+      audio.currentTime = video.currentTime;
+    } catch {}
+  }
+});
+
+/* বাংলা লেখা */
+$("pickText")?.addEventListener("click", () => {
+  $("textInput")?.focus();
+  showStatus("বাংলা লেখা লিখুন।");
+});
+
+function updateText() {
+  if (!overlay) return;
+
+  const text = $("textInput")?.value || "";
+  overlay.textContent = text;
+  overlay.style.display = text ? "block" : "none";
+
+  const size = Number($("textSize")?.value || 25);
+  overlay.style.fontSize = `${size}px`;
+
+  const position = $("textPosition")?.value || "bottom";
+  overlay.style.top =
+    position === "top" ? "8%" :
+    position === "middle" ? "45%" : "auto";
+
+  overlay.style.bottom = position === "bottom" ? "8%" : "auto";
+}
+
+$("textInput")?.addEventListener("input", updateText);
+$("textSize")?.addEventListener("input", updateText);
+$("textPosition")?.addEventListener("change", updateText);
+
+/* কাটার শুরুর ও শেষের সময় */
+$("trimStart")?.addEventListener("change", () => {
+  const start = Number($("trimStart").value || 0);
+  const end = Number($("trimEnd")?.value || videoDuration);
+
+  if (start >= end) {
+    $("trimStart").value = Math.max(0, end - 0.1);
+  }
+
+  video.currentTime = Number($("trimStart").value);
+  updateDuration();
+});
+
+$("trimEnd")?.addEventListener("change", () => {
+  const start = Number($("trimStart")?.value || 0);
+  const end = Number($("trimEnd").value || videoDuration);
+
+  if (end <= start) {
+    $("trimEnd").value = Math.min(videoDuration, start + 0.1);
+  }
+
+  updateDuration();
+});
+
+$("setStart")?.addEventListener("click", () => {
+  if (!video.src) return showStatus("আগে ভিডিও যোগ করুন।");
+
+  $("trimStart").value = video.currentTime;
+  updateDuration();
+  showStatus("কাটার শুরুর সময় সেট হয়েছে।");
+});
+
+/* নতুন প্রজেক্ট */
+function newProject() {
+  video.pause();
+  audio.pause();
+
+  video.removeAttribute("src");
+  video.load();
+  audio.removeAttribute("src");
+  audio.load();
+
+  if (videoURL) URL.revokeObjectURL(videoURL);
+  if (audioURL) URL.revokeObjectURL(audioURL);
+
+  videoURL = "";
+  audioURL = "";
+  videoDuration = 0;
+
+  if (videoFile) videoFile.value = "";
+  if (audioFile) audioFile.value = "";
+  if ($("textInput")) $("textInput").value = "";
+  if ($("audioName")) $("audioName").textContent = "এখনো কোনো অডিও যোগ করা হয়নি";
+  if (placeholder) placeholder.style.display = "";
+  if (overlay) overlay.style.display = "none";
+
+  updateDuration();
+  showStatus("নতুন প্রজেক্ট তৈরি হয়েছে।");
+}
+
+/* প্রজেক্টের সেটিংস সংরক্ষণ */
+function saveDraft() {
+  const draft = {
+    trimStart: $("trimStart")?.value || "0",
+    trimEnd: $("trimEnd")?.value || "",
+    text: $("textInput")?.value || "",
+    textSize: $("textSize")?.value || "25",
+    textPosition: $("textPosition")?.value || "bottom"
+  };
+
+  try {
+    localStorage.setItem("clipghor-draft", JSON.stringify(draft));
+    showStatus("প্রজেক্টের সেটিংস সংরক্ষণ হয়েছে।");
+  } catch {
+    showStatus("সেটিংস সংরক্ষণ করা যায়নি।");
+  }
+}
+
+function loadDraft() {
+  try {
+    const raw = localStorage.getItem("clipghor-draft");
+    if (!raw) return showStatus("কোনো সংরক্ষিত সেটিংস পাওয়া যায়নি।");
+
+    const draft = JSON.parse(raw);
+
+    if ($("trimStart")) $("trimStart").value = draft.trimStart ?? "0";
+    if ($("trimEnd") && draft.trimEnd !== "") {
+      $("trimEnd").value = draft.trimEnd;
+    }
+    if ($("textInput")) $("textInput").value = draft.text ?? "";
+    if ($("textSize")) $("textSize").value = draft.textSize ?? "25";
+    if ($("textPosition")) {
+      $("textPosition").value = draft.textPosition ?? "bottom";
+    }
+
+    updateText();
+    updateDuration();
+    showStatus("সংরক্ষিত সেটিংস লোড হয়েছে।");
+  } catch {
+    showStatus("সেটিংস লোড করা যায়নি।");
+  }
+}
+
+$("saveDraft")?.addEventListener("click", saveDraft);
+$("loadDraft")?.addEventListener("click", loadDraft);
+
+/* ফাইলের নাম ও সময় দেখানো */
+updateText();
+updateDuration();
+showStatus("ক্লিপঘর প্রস্তুত। ভিডিও যোগ করুন।");
