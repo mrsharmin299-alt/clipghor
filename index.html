@@ -1,12 +1,597 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Flixeok</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script src="src/main.js"></script>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#eaf8ff">
+<meta name="description" content="Flixeok by FTTHBD - AI Video Editor">
+<title>Flixeok - by FTTHBD</title>
+
+<style>
+:root {
+  --blue: #087cff;
+  --cyan: #00d9f5;
+  --purple: #853cff;
+  --ink: #10265b;
+  --muted: #7184aa;
+  --glass: rgba(255,255,255,.76);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse at 90% 4%, #79e9ff 0, transparent 32%),
+    radial-gradient(ellipse at 0% 22%, #b8d9ff 0, transparent 35%),
+    linear-gradient(160deg,#e4f7ff,#ffffff 50%,#e5f0ff);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.app {
+  max-width: 620px;
+  margin: auto;
+  min-height: 100vh;
+  padding: 22px 17px 112px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brand {
+  font-size: clamp(29px,8vw,43px);
+  font-weight: 1000;
+  letter-spacing: -2px;
+  line-height: 1.1;
+  background: linear-gradient(130deg,#05d9fa,#0863f5 48%,#812eff);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  filter: drop-shadow(0 3px 5px #438dff30);
+}
+
+.brand small {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-align: right;
+  color: #1b56a6;
+  margin-top: 4px;
+}
+
+.round-btn {
+  width: 54px;
+  height: 54px;
+  border: 1px solid #ffffff;
+  border-radius: 50%;
+  background: linear-gradient(145deg,#fff,#d8f1ff);
+  box-shadow: 0 8px 20px #258bff30,
+              inset 0 2px 5px #ffffff;
+  font-size: 26px;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.round-btn:active {
+  transform: scale(.90);
+  box-shadow: 0 2px 8px #258bff30;
+}
+
+.hero-title {
+  margin: 28px 0 19px;
+}
+
+.hero-title .eyebrow {
+  font-size: 17px;
+  color: #4e72ae;
+  font-weight: 650;
+}
+
+.hero-title h1 {
+  margin: 2px 0 7px;
+  font-size: clamp(31px,8vw,43px);
+  line-height: 1.12;
+  letter-spacing: -1.5px;
+}
+
+.hero-title p {
+  margin: 0;
+  font-size: 13px;
+  color: #6680ad;
+}
+
+.hero-cards {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 12px;
+}
+
+.hero-card {
+  min-width: 0;
+  min-height: 218px;
+  padding: 13px 12px;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+  border: 1px solid #ffffff;
+  border-radius: 27px;
+  background:
+    radial-gradient(circle at 20% 10%,#ffffff 0,transparent 38%),
+    linear-gradient(145deg,#b6f6ff,#e7f7ff 50%,#dedbff);
+  box-shadow:
+    0 10px 24px #278aff28,
+    inset 0 0 0 2px #ffffffa8,
+    inset 0 -4px 12px #84d5ff28;
+  transition: transform .24s, box-shadow .24s;
+}
+
+.hero-card.photo {
+  background:
+    radial-gradient(circle at 20% 10%,#fff 0,transparent 38%),
+    linear-gradient(145deg,#e0d8ff,#f5f3ff 55%,#c4efff);
+}
+
+.hero-card:before {
+  content: "";
+  position: absolute;
+  width: 150%;
+  height: 70%;
+  top: -28%;
+  left: -30%;
+  background: linear-gradient(120deg,transparent,#ffffff75,transparent);
+  transform: rotate(-15deg);
+  pointer-events: none;
+}
+
+.hero-card:active,
+.tool:active {
+  transform: scale(.955);
+}
+
+.hero-card .art {
+  height: 128px;
+  display: grid;
+  place-items: center;
+  font-size: 77px;
+  position: relative;
+  filter: drop-shadow(0 10px 7px #2368d83a);
+  transition: transform .3s;
+}
+
+.hero-card:active .art {
+  transform: rotate(-5deg) scale(1.08);
+}
+
+.hero-card strong {
+  display: block;
+  font-size: clamp(17px,4.5vw,23px);
+  letter-spacing: -.6px;
+}
+
+.hero-card .sub {
+  display: block;
+  font-size: 11px;
+  color: #5475a6;
+  margin-top: 3px;
+}
+
+.section-heading {
+  margin: 27px 2px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-heading h2 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.section-heading span {
+  color: #7287ac;
+  font-size: 12px;
+}
+
+.tools {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 21px 8px;
+}
+
+.tool {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  min-width: 0;
+  padding: 0 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: transform .2s;
+}
+
+.tool-icon {
+  width: min(100%,94px);
+  aspect-ratio: 1;
+  border-radius: 27px;
+  display: grid;
+  place-items: center;
+  font-size: clamp(34px,9vw,46px);
+  background: linear-gradient(145deg,#ffffff,#eaf5ff);
+  border: 1px solid #ffffff;
+  box-shadow: 0 8px 18px #448bda22,
+              inset 0 2px 5px #ffffff;
+  position: relative;
+  transition: box-shadow .25s, transform .25s;
+}
+
+.tool:active .tool-icon {
+  transform: translateY(2px) scale(.92);
+  box-shadow: 0 2px 7px #448bda25;
+}
+
+.tool-icon:after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 22px;
+  border: 1px solid #ffffffc7;
+  pointer-events: none;
+}
+
+.tool-label {
+  font-size: clamp(11px,3.4vw,14px);
+  font-weight: 650;
+  text-align: center;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.bottom-nav {
+  position: fixed;
+  z-index: 10;
+  bottom: max(10px,env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(590px,calc(100% - 22px));
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  padding: 10px 5px 8px;
+  border: 1px solid #ffffffd9;
+  border-radius: 25px;
+  background: #ffffffd9;
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  box-shadow: 0 7px 30px #3678bd25;
+}
+
+.nav-item {
+  position: relative;
+  border: 0;
+  background: transparent;
+  color: #8a9ab5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 650;
+  padding: 5px 1px;
+  min-width: 0;
+}
+
+.nav-icon {
+  font-size: 23px;
+  line-height: 1.15;
+  transition: transform .2s;
+}
+
+.nav-item.active {
+  color: #1554f4;
+}
+
+.nav-item.active .nav-icon {
+  transform: translateY(-3px) scale(1.12);
+  filter: drop-shadow(0 3px 5px #4285ff45);
+}
+
+.nav-item.active:after {
+  content: "";
+  width: 20px;
+  height: 3px;
+  border-radius: 5px;
+  background: linear-gradient(90deg,#00c8ff,#6048ff);
+  position: absolute;
+  bottom: -2px;
+}
+
+.toast {
+  position: fixed;
+  z-index: 30;
+  bottom: 100px;
+  left: 50%;
+  transform: translate(-50%,15px);
+  width: max-content;
+  max-width: calc(100% - 35px);
+  padding: 12px 18px;
+  color: white;
+  background: #142b52ee;
+  border: 1px solid #ffffff30;
+  border-radius: 14px;
+  box-shadow: 0 7px 25px #0002;
+  font-size: 13px;
+  opacity: 0;
+  pointer-events: none;
+  transition: .25s;
+  text-align: center;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%,0);
+}
+
+@media(min-width:500px) {
+  .hero-card { min-height: 245px; }
+  .hero-card .art { height: 145px; }
+  .tools { gap: 24px 15px; }
+}
+
+@media(max-width:350px) {
+  .app { padding-left: 12px; padding-right: 12px; }
+  .hero-card { min-height: 180px; padding: 10px; }
+  .hero-card .art { height: 100px; font-size: 58px; }
+  .tool-icon { border-radius: 20px; }
+}
+</style>
+</head>
+
+<body>
+<main class="app">
+
+  <header class="topbar">
+    <div class="brand">
+      Flixeok
+      <small>BY FTTHBD</small>
+    </div>
+    <button class="round-btn" id="searchBtn" aria-label="Search">⌕</button>
+  </header>
+
+  <section class="hero-title">
+    <div class="eyebrow">Video create</div>
+    <h1>Get started <span style="color:#087cff">›</span></h1>
+    <p>Turn your ideas into amazing videos</p>
+  </section>
+
+  <section class="hero-cards">
+    <button class="hero-card" data-tool="New Video">
+      <span class="art">🎬</span>
+      <strong>New video</strong>
+      <span class="sub">Create something amazing</span>
+    </button>
+
+    <button class="hero-card photo" data-tool="Edit Photo">
+      <span class="art">🖼️</span>
+      <strong>Edit photo</strong>
+      <span class="sub">Make it more beautiful</span>
+    </button>
+  </section>
+
+  <div class="section-heading">
+    <h2>Creative tools</h2>
+    <span>Explore all tools ✦</span>
+  </div>
+
+  <section class="tools" id="tools">
+
+    <button class="tool" data-tool="AutoCut">
+      <span class="tool-icon">🎞️</span>
+      <span class="tool-label">AutoCut</span>
+    </button>
+
+    <button class="tool" data-tool="Retouch">
+      <span class="tool-icon">💎</span>
+      <span class="tool-label">Retouch</span>
+    </button>
+
+    <button class="tool" data-tool="AI Generator">
+      <span class="tool-icon">🤖</span>
+      <span class="tool-label">AI Generator</span>
+    </button>
+
+    <button class="tool" data-tool="Photo Tools">
+      <span class="tool-icon">🏞️</span>
+      <span class="tool-label">Photo tools</span>
+    </button>
+
+    <button class="tool" data-tool="Shoot and Record">
+      <span class="tool-icon">📹</span>
+      <span class="tool-label">Shoot &amp; record</span>
+    </button>
+
+    <button class="tool" data-tool="Auto Enhance">
+      <span class="tool-icon">🪄</span>
+      <span class="tool-label">Auto enhance</span>
+    </button>
+
+    <button class="tool" data-tool="Cover Maker">
+      <span class="tool-icon">🖌️</span>
+      <span class="tool-label">Cover maker</span>
+    </button>
+
+    <button class="tool" data-tool="Auto Captions">
+      <span class="tool-icon">💬</span>
+      <span class="tool-label">Auto captions</span>
+    </button>
+
+    <button class="tool" data-tool="Remove Background">
+      <span class="tool-icon">✂️</span>
+      <span class="tool-label">Remove background</span>
+    </button>
+
+    <button class="tool" data-tool="AI Photo Editor">
+      <span class="tool-icon">🌄</span>
+      <span class="tool-label">AI photo editor</span>
+    </button>
+
+    <button class="tool" data-tool="3D Studio">
+      <span class="tool-icon">🧊</span>
+      <span class="tool-label">3D Studio</span>
+    </button>
+
+    <button class="tool" data-tool="AI Dialogue Scene">
+      <span class="tool-icon">☁️</span>
+      <span class="tool-label">AI Dialogue Scene</span>
+    </button>
+
+    <button class="tool" data-tool="Record">
+      <span class="tool-icon">🎙️</span>
+      <span class="tool-label">Record</span>
+    </button>
+
+    <button class="tool" data-tool="Templates">
+      <span class="tool-icon">🎨</span>
+      <span class="tool-label">Templates</span>
+    </button>
+
+    <button class="tool" data-tool="Marketing Tools">
+      <span class="tool-icon">📣</span>
+      <span class="tool-label">Marketing tools</span>
+    </button>
+
+  </section>
+</main>
+
+<nav class="bottom-nav" aria-label="Main navigation">
+  <button class="nav-item active" data-tab="Edit">
+    <span class="nav-icon">✂️</span>
+    <span>Edit</span>
+  </button>
+  <button class="nav-item" data-tab="Templates">
+    <span class="nav-icon">▦</span>
+    <span>Templates</span>
+  </button>
+  <button class="nav-item" data-tab="AI Lab">
+    <span class="nav-icon">✧</span>
+    <span>AI Lab</span>
+  </button>
+  <button class="nav-item" data-tab="Projects">
+    <span class="nav-icon">📁</span>
+    <span>Projects</span>
+  </button>
+  <button class="nav-item" data-tab="Me">
+    <span class="nav-icon">♙</span>
+    <span>Me</span>
+  </button>
+</nav>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const toast = document.getElementById("toast");
+let toastTimer;
+
+function notify(message) {
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2200);
+}
+
+document.querySelectorAll("[data-tool]").forEach(button => {
+  button.addEventListener("click", () => {
+    const name = button.dataset.tool;
+    if (name === "New Video") {
+      openVideoPicker();
+    } else if (name === "Edit Photo") {
+      openPhotoPicker();
+    } else {
+      notify(name + " — এই ফিচার পরবর্তী ধাপে তৈরি হবে।");
+    }
+  });
+});
+
+function openVideoPicker() {
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = "video/*";
+  input.addEventListener("change", () => {
+    if (input.files && input.files[0]) {
+      notify("ভিডিও নির্বাচিত: " + input.files[0].name +
+        "। এডিটর পরবর্তী ধাপে যুক্ত হবে।");
+    }
+  });
+  input.click();
+}
+
+function openPhotoPicker() {
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = "image/*";
+  input.addEventListener("change", () => {
+    if (input.files && input.files[0]) {
+      notify("ছবি নির্বাচিত: " + input.files[0].name +
+        "। ফটো এডিটর পরবর্তী ধাপে যুক্ত হবে।");
+    }
+  });
+  input.click();
+}
+
+document.querySelectorAll("[data-tab]").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll("[data-tab]").forEach(item => {
+      item.classList.remove("active");
+    });
+    button.classList.add("active");
+    const tab = button.dataset.tab;
+    if (tab !== "Edit") {
+      notify(tab + " — এই পেজ পরবর্তী ধাপে তৈরি হবে।");
+    }
+  });
+});
+
+document.getElementById("searchBtn").addEventListener("click", () => {
+  const query = prompt("কোন টুলটি খুঁজতে চাও?");
+  if (!query) return;
+
+  const tools = [...document.querySelectorAll("[data-tool]")];
+  const match = tools.find(item =>
+    item.dataset.tool.toLowerCase().includes(query.toLowerCase())
+  );
+
+  if (match) {
+    match.scrollIntoView({ behavior: "smooth", block: "center" });
+    match.animate(
+      [
+        { transform: "scale(1)" },
+        { transform: "scale(1.08)" },
+        { transform: "scale(1)" }
+      ],
+      { duration: 450 }
+    );
+  } else {
+    notify("এই নামে কোনো টুল পাওয়া যায়নি।");
+  }
+});
+</script>
+</body>
 </html>
