@@ -1,10 +1,15 @@
 {
-  "name": "ক্লিপঘর ভিডিও এডিটর",
-  "short_name": "ক্লিপঘর",
-  "description": "বাংলা ভিডিও এডিটিং অ্যাপের প্রাথমিক সংস্করণ",
-  "start_url": "./index.html",
+  "name": "Flixeok",
+  "short_name": "Flixeok",
+  "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#167ed2",
-  "lang": "bn"
+  "background_color": "#07162B",
+  "theme_color": "#0E4AA8",
+  "icons": [
+    {
+      "src": "assets/icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
 }
