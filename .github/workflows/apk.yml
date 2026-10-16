@@ -7,6 +7,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,10 +22,20 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+
+      - name: Verify project files
+        run: |
+          test -f package.json || {
+            echo "ERROR: package.json not found"
+            exit 1
+          }
+          test -f capacitor.config.json || {
+            echo "ERROR: capacitor.config.json not found"
+            exit 1
+          }
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --no-audit --no-fund
 
       - name: Build web app if build script exists
         run: |
@@ -39,10 +52,11 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Check Capacitor configuration
+      - name: Prepare Android project
         run: |
-          test -f capacitor.config.json
-          test -d android || npx cap add android
+          if [ ! -d android ]; then
+            npx cap add android
+          fi
 
       - name: Sync Android project
         run: npx cap sync android
