@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#167ed2">
+<title>ক্লিপঘর — ভিডিও এডিটর</title>
+<link rel="manifest" href="manifest.json">
+<style>
+:root{--ink:#11151b;--muted:#98a2ad;--teal:#25d9c8}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Arial,"Noto Sans Bengali",sans-serif;background:#fff;color:var(--ink)}
+button,input{font:inherit}button{cursor:pointer;touch-action:manipulation}
+.app{max-width:600px;min-height:100vh;margin:auto;padding-bottom:84px;background:#fff}
+.hero{height:365px;padding:20px 25px 0;background:radial-gradient(ellipse at 100% 42%,#21c7e3 0%,transparent 38%),radial-gradient(ellipse at 7% 0%,#278ee8 0%,transparent 44%),linear-gradient(135deg,#0871d1,#174cb4 55%,#65e5ec)}
+.topline{display:flex;justify-content:space-between;align-items:center}.brand{font-size:20px;font-weight:800;color:#073b78}.round{width:46px;height:46px;border:0;border-radius:50%;background:#0674b65c;color:#fff;font-size:27px}
+.hero-space{height:203px}.eyebrow{font-size:20px;font-weight:700;color:#fff}.headline{font-size:36px;font-weight:800;color:white;letter-spacing:-.8px}.arrow{display:inline-grid;place-items:center;width:26px;height:30px;border-radius:7px;background:#ffffff42;font-size:25px}
+.create-row{display:grid;grid-template-columns:1.65fr .95fr;gap:13px;margin:-1px 25px 0}.create-card{height:178px;border:0;border-radius:21px;background:linear-gradient(145deg,#dcefff,#f7fbff);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative;color:#10151d}.create-card:active,.tool:active{transform:scale(.98)}.create-icon{height:40px;width:40px;border-radius:11px;background:#080e18;color:#fff;display:grid;place-items:center;font-size:32px}.create-label{font-size:23px}.tag{position:absolute;right:6px;top:7px;border-radius:18px;background:#fff;padding:5px 9px;font-size:11px;font-weight:700}
+.recent{display:flex;gap:12px;overflow-x:auto;padding:0 29px;margin-top:26px;scrollbar-width:none}.recent::-webkit-scrollbar{display:none}.recent-item{flex:0 0 112px;height:112px;border:0;border-radius:19px;background:linear-gradient(145deg,#e7eff4,#f9fbfc);position:relative;overflow:hidden;padding:0}.recent-item video,.recent-item img{width:100%;height:100%;object-fit:cover}.recent-label{position:absolute;left:0;right:0;bottom:0;padding:18px 7px 7px;color:#fff;text-align:left;font-size:12px;background:linear-gradient(transparent,#000a)}
+.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:5px;row-gap:17px;padding:43px 17px 25px}.tool{border:0;background:#fff;min-height:113px;display:flex;align-items:center;justify-content:flex-start;flex-direction:column;gap:10px;padding:7px 3px;color:#111}.tool-icon{height:43px;display:flex;align-items:center;justify-content:center}.tool-icon svg{width:37px;height:37px;stroke:currentColor;stroke-width:1.9;fill:none;stroke-linecap:round;stroke-linejoin:round}.tool-name{font-size:16px;line-height:1.25;text-align:center;overflow-wrap:anywhere}
+.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:600px;height:82px;display:grid;grid-template-columns:repeat(6,1fr);background:#fff;border-top:1px solid #eceff1;padding:6px 2px max(5px,env(safe-area-inset-bottom));z-index:10}.nav{border:0;background:#fff;color:#aab2bc;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;padding:0}.nav svg{width:29px;height:29px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}.nav.active{color:#080d15}
+.page{display:none;min-height:75vh;padding:15px;background:#fff}.page.active{display:block}.page-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}.back{border:0;background:#eef2f5;border-radius:12px;padding:10px 14px}.panel{background:#f4f7fa;border:1px solid #e5eaf0;border-radius:16px;padding:14px;margin-bottom:12px}.preview{height:min(65vh,520px);min-height:300px;max-width:100%;aspect-ratio:9/14;margin:auto;position:relative;overflow:hidden;border-radius:13px;background:radial-gradient(ellipse at 50% 25%,#287080,#111a2b 58%,#030609);display:flex;justify-content:center;align-items:center;transition:transform .3s,filter .3s;transform-style:preserve-3d}.mock-person{position:absolute;bottom:-9%;height:60%;width:45%;border-radius:45% 45% 0 0;background:linear-gradient(90deg,#111c2a,#526071,#111827)}.mock-head{position:absolute;top:17%;height:27%;width:30%;border-radius:48%;background:linear-gradient(90deg,#704731,#d4a183,#6d4230)}.mock-hair{position:absolute;top:15%;height:10%;width:32%;border-radius:50%;background:#0b0c11}.frame{position:absolute;inset:7%;border:2px solid #28e0cf55;border-radius:12px;pointer-events:none}#realVideo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;z-index:2}#caption{position:absolute;z-index:3;bottom:8%;left:4%;right:4%;text-align:center;font-size:22px;font-weight:900;color:white;text-shadow:0 2px 8px #000;pointer-events:none}.row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:12px}.btn{border:0;border-radius:11px;background:#e5ebf0;padding:11px 13px;color:#111}.primary{background:var(--teal);font-weight:700}.muted{font-size:12px;color:#687582;line-height:1.5}.timeline{display:flex;gap:8px;overflow-x:auto;padding:8px 0}.track{min-width:125px;background:#fff;border:1px solid #dce3e9;border-radius:10px;padding:10px;font-size:12px;color:#72808c}.track b{display:block;color:#111;margin-bottom:6px}.clipline{height:9px;background:linear-gradient(90deg,#27d9c7,#277f91,#27d9c7);border-radius:5px;margin-top:7px}.editor-tools{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.editor-tools button{border:1px solid #dfe6ec;background:#fff;border-radius:12px;padding:13px 4px;font-size:13px}.editor-tools span{display:block;font-size:22px;margin-bottom:5px}.field{width:100%;padding:12px;border:1px solid #d7e0e7;border-radius:10px;background:#fff;margin-top:7px}.status{font-size:12px;color:#586775;line-height:1.5}
+@media(max-width:380px){.hero{padding-left:17px;padding-right:17px}.hero-space{height:195px}.create-row{margin-left:17px;margin-right:17px;gap:9px}.create-card{height:155px}.create-label{font-size:19px}.headline{font-size:32px}.recent{padding-left:19px;padding-right:19px}.tools{padding-left:9px;padding-right:9px}.tool-name{font-size:14px}}
+</style>
+</head>
+<body>
+<div class="app">
+<section id="home" class="page active" style="padding:0">
+<header class="hero"><div class="topline"><div class="brand">ক্লিপঘর</div><button class="round" aria-label="Search" onclick="searchTools()">⌕</button></div><div class="hero-space"></div><div class="eyebrow">Video create</div><div class="headline">Get started <span class="arrow">›</span></div></header>
+<div class="create-row">
+<button class="create-card" onclick="document.getElementById('videoInput').click()"><span class="create-icon">+</span><span class="create-label">New video</span></button>
+<button class="create-card" onclick="document.getElementById('photoInput').click()"><span class="tag">Photo tools</span><span class="create-icon">▧</span><span class="create-label">Edit photo</span></button>
+</div>
+<input id="videoInput" type="file" accept="video/*" multiple hidden><input id="photoInput" type="file" accept="image/*" hidden>
+<div class="recent" id="recent"><button class="recent-item" onclick="document.getElementById('videoInput').click()"><span style="display:grid;height:100%;place-items:center;color:#8d9eaa;font-size:32px">＋</span><span class="recent-label">ভিডিও যোগ করুন</span></button><div class="recent-item"></div><div class="recent-item"></div><div class="recent-item"></div><div class="recent-item"></div></div>
+<div class="tools" id="homeTools">
+<button class="tool" onclick="openTool('AutoCut')"><span class="tool-icon"><svg viewBox="0 0 40 40"><rect x="5" y="6" width="24" height="24" rx="3"/><path d="m14 13 8 5-8 5zM29 25l5-7-1 7h4l-7 9 1-9z"/></svg></span><span class="tool-name">AutoCut</span></button>
+<button class="tool" onclick="openTool('Retouch')"><span class="tool-icon"><svg viewBox="0 0 40 40"><path d="M6 32V19a13 13 0 0 1 26 0M11 32V20a8 8 0 0 1 16 0v12zM30 4v7M26.5 7.5h7"/></svg></span><span class="tool-name">Retouch</span></button>
+<button class="tool" onclick="openTool('AI generator')"><span class="tool-icon"><svg viewBox="0 0 40 40"><rect x="5" y="7" width="26" height="25" rx="3"/><path d="M11 13h10M11 19h8M33 3v8M29 7h8"/></svg></span><span class="tool-name">AI generator</span></button>
+<button class="tool" onclick="openTool('Photo tools')"><span class="tool-icon"><svg viewBox="0 0 40 40"><rect x="4" y="5" width="26" height="26" rx="3"/><circle cx="12" cy="13" r="2"/><path d="m6 27 8-8 7 7"/></svg></span><span class="tool-name">Photo tools</span></button>
+<button class="tool" onclick="openTool('Shoot and record')"><span class="tool-icon"><svg viewBox="0 0 40 40"><circle cx="20" cy="19" r="14"/><circle cx="20" cy="19" r="3"/></svg></span><span class="tool-name">Shoot and record</span></button>
+<button class="tool" onclick="openTool('Auto enhance')"><span class="tool-icon"><svg viewBox="0 0 40 40"><path d="m8 29 17-17 5 5-17 17-6 1zM31 4v7M27.5 7.5h7"/></svg></span><span class="tool-name">Auto enhance</span></button>
+<button class="tool" onclick="openTool('Cover maker')"><span class="tool-icon"><svg viewBox="0 0 40 40"><path d="M11 6h20a3 3 0 0 1 3 3v22a3 3 0 0 1-3 3H11zM7 10v23a3 3 0 0 0 3 3h19"/></svg></span><span class="tool-name">Cover maker</span></button>
+<button class="tool" onclick="openTool('Auto captions')"><span class="tool-icon"><svg viewBox="0 0 40 40"><rect x="5" y="13" width="27" height="21" rx="4"/><path d="M11 21h15M11 26h11M30 3v8M26 7h8"/></svg></span><span class="tool-name">Auto captions</span></button>
+<button class="tool" onclick="openTool('Remove background')"><span class="tool-icon"><svg viewBox="0 0 40 40"><circle cx="20" cy="13" r="7"/><path d="M6 33a14 14 0 0 1 28 0z"/></svg></span><span class="tool-name">Remove background</span></button>
+<button class="tool" onclick="openTool('3D Studio')"><span class="tool-icon"><svg viewBox="0 0 40 40"><path d="m20 3 15 9v16l-15 9-15-9V12zM5 12l15 9 15-9M20 21v16M28 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></svg></span><span class="tool-name">3D Studio</span></button>
+<button class="tool" onclick="openTool('Space')"><span class="tool-icon"><svg viewBox="0 0 40 40"><path d="M11 30H8a6 6 0 0 1 0-12 12 12 0 0 1 23-3 8 8 0 0 1 1 15z"/></svg></span><span class="tool-name">Space</span></button>
+<button class="tool" onclick="openTool('Marketing tools')"><span class="tool-icon"><svg viewBox="0 0 40 40"><path d="M9 14h22l3 19H6zM14 14v-4a6 6 0 0 1 12 0v4M17 20l7 4-7 4z"/></svg></span><span class="tool-name">Marketing tools</span></button>
+<button class="tool" onclick="openTool('AI photo editor')"><span class="tool-icon"><svg viewBox="0 0 40 40"><rect x="4" y="5" width="25" height="23" rx="3"/><rect x="9" y="11" width="25" height="23" rx="3"/><path d="m11 27 7-7 7 7M30 3v7M26.5 6.5h7"/></svg></span><span class="tool-name">AI photo editor</span></button>
+</div>
+</section>
+
+<section id="editor" class="page">
+<div class="page-head"><button class="back" onclick="showPage('home')">‹ ফিরে যান</button><strong>ভিডিও এডিটর</strong><button class="btn primary" style="margin-left:auto" onclick="exportNotice()">Export</button></div>
+<div class="panel"><div class="preview" id="preview"><div class="mock-person"></div><div class="mock-head"></div><div class="mock-hair"></div><div class="frame"></div><video id="realVideo" playsinline hidden></video><div id="caption">আমার নতুন ভিডিও</div></div>
+<div class="row"><button class="btn" onclick="playPause()">▶ / Ⅱ চালান</button><button class="btn" onclick="resetEffects()">↺ রিসেট</button></div><p class="status" id="status">ভিডিও বেছে নিলে এখানে দেখা যাবে।</p></div>
+<div class="panel"><strong>টাইমলাইন</strong><div class="timeline"><div class="track"><b>🎬 ভিডিও</b><span id="clipName">কোনো ক্লিপ নেই</span><div class="clipline"></div></div><div class="track"><b>🎵 অডিও</b>অডিও ট্র্যাক<div class="clipline"></div></div><div class="track"><b>🔤 লেখা</b>টেক্সট ট্র্যাক<div class="clipline"></div></div></div><p class="muted">এই নতুন প্রকল্পে প্রিভিউ, সাধারণ 3D রূপান্তর ও ফিল্টার আছে। প্রকৃত ভিডিও কাটিং এবং MP4 রেন্ডারিং পরবর্তী উন্নয়নের কাজ।</p></div>
+<div class="panel"><strong>এডিটিং টুল</strong><div class="editor-tools" style="margin-top:12px">
+<button onclick="apply3D('zoom')"><span>🌀</span>3D জুম</button><button onclick="apply3D('tilt')"><span>💎</span>3D ঘোরানো</button><button onclick="apply3D('float')"><span>🌌</span>3D ভাসমান</button><button onclick="applyFilter('gray')"><span>◐</span>সাদা-কালো</button><button onclick="applyFilter('warm')"><span>☀️</span>উষ্ণ রং</button><button onclick="addCaption()"><span>🔤</span>লেখা যোগ</button><button onclick="document.getElementById('audioInput').click()"><span>🎵</span>অডিও বাছুন</button><button onclick="setSpeed(0.5)"><span>🐢</span>স্লো মোশন</button><button onclick="setSpeed(1)"><span>▶</span>স্বাভাবিক গতি</button></div><input id="audioInput" type="file" accept="audio/*" hidden><audio id="audioPlayer" controls hidden style="width:100%;margin-top:12px"></audio></div>
+</section>
+
+<nav class="bottom">
+<button class="nav active" onclick="navTab(this,'Edit')"><svg viewBox="0 0 32 32"><circle cx="7" cy="7" r="3"/><circle cx="7" cy="25" r="3"/><path d="m9 9 14 14M9 23 23 9M18 5l9 9M5 18l9 9"/></svg>Edit</button>
+<button class="nav" onclick="navTab(this,'Templates')"><svg viewBox="0 0 32 32"><rect x="5" y="5" width="15" height="22" rx="3"/><path d="M24 9v18M27 9v18"/></svg>Templates</button>
+<button class="nav" onclick="navTab(this,'AI Lab')"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="10"/><path d="M16 2v5M16 25v5M2 16h5M25 16h5"/></svg>AI Lab</button>
+<button class="nav" onclick="navTab(this,'Projects')"><svg viewBox="0 0 32 32"><path d="M3 10h11l4 4h11v14H3zM3 10V6h10l4 4"/></svg>Projects</button>
+<button class="nav" onclick="navTab(this,'Inbox')"><svg viewBox="0 0 32 32"><path d="M5 22V14a11 11 0 0 1 22 0v8l3 5H2zM12 22a4 4 0 0 0 8 0"/></svg>Inbox</button>
+<button class="nav" onclick="navTab(this,'Me')"><svg viewBox="0 0 32 32"><circle cx="16" cy="10" r="6"/><path d="M4 28a12 12 0 0 1 24 0z"/></svg>Me</button>
+</nav>
+</div>
+<script src="pv.js"></script>
+</body>
+</html>

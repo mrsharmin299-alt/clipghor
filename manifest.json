@@ -1,0 +1,10 @@
+{
+  "name": "ক্লিপঘর ভিডিও এডিটর",
+  "short_name": "ক্লিপঘর",
+  "description": "বাংলা ভিডিও এডিটিং অ্যাপের প্রাথমিক সংস্করণ",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#167ed2",
+  "lang": "bn"
+}
