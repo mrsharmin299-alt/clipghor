@@ -25,14 +25,8 @@ jobs:
 
       - name: Verify project files
         run: |
-          test -f package.json || {
-            echo "ERROR: package.json not found"
-            exit 1
-          }
-          test -f capacitor.config.json || {
-            echo "ERROR: capacitor.config.json not found"
-            exit 1
-          }
+          test -f package.json
+          test -f capacitor.config.json
 
       - name: Install dependencies
         run: npm install --no-audit --no-fund
@@ -49,30 +43,29 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - 
       - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK packages
         shell: bash
         run: |
-          SDK_ROOT="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
+          SDK_ROOT="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
           echo "ANDROID_HOME=$SDK_ROOT" >> "$GITHUB_ENV"
           echo "ANDROID_SDK_ROOT=$SDK_ROOT" >> "$GITHUB_ENV"
 
-          SDKMANAGER="$(find "$SDK_ROOT/cmdline-tools" -type f -name sdkmanager | sort -V | tail -n 1)"
+          SDKMANAGER="$(find "$SDK_ROOT/cmdline-tools" -type f -name sdkmanager 2>/dev/null | sort -V | tail -n 1)"
 
           if [ -z "$SDKMANAGER" ]; then
-            echo "ERROR: Android sdkmanager not found"
+            echo "ERROR: sdkmanager not found"
             exit 1
           fi
 
-          yes | "$SDKMANAGER" --licenses >/dev/null || true
+          yes | "$SDKMANAGER" --licenses >/dev/null 2>&1 || true
 
-          "$SDKMANAGER" --install \
+          "$SDKMANAGER" \
             "platform-tools" \
             "platforms;android-35" \
-            "platforms;android-36" \
-            "build-tools;35.0.0" \
-            "build-tools;36.0.0"
-
+            "build-tools;35.0.0"
 
       - name: Prepare Android project
         run: |
