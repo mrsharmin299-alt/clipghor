@@ -1,18 +1,18 @@
+
 {
-  "name": "clipghor",
+  "name": "flixeok",
   "version": "1.0.0",
   "private": true,
-  "description": "Clipghor Android WebView starter",
+  "description": "Flixeok Android Video Editor by FTTHBD",
   "scripts": {
-    "build": "echo Static web project ready",
-    "cap:init": "cap init",
+    "build": "node -e \"const fs=require('fs');fs.mkdirSync('www',{recursive:true});for(const f of ['index.html','manifest.json','pv.js','sw.js'])if(fs.existsSync(f))fs.copyFileSync(f,'www/'+f);if(!fs.existsSync('www/index.html'))throw Error('index.html not found')\"",
     "cap:sync": "cap sync android"
   },
   "dependencies": {
-    "@capacitor/android": "^6.2.1",
-    "@capacitor/core": "^6.2.1"
+    "@capacitor/android": "6.2.1",
+    "@capacitor/core": "6.2.1"
   },
   "devDependencies": {
-    "@capacitor/cli": "^6.2.1"
+    "@capacitor/cli": "6.2.1"
   }
 }
